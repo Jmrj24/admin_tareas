@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: notifications-service
+
+  mail:
+    host: live.smtp.mailtrap.io
+    port: 587
+    username: smtp@mailtrap.io
+    password: 0fee5a7171aeaa2b36d535df407df2a2
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          ssl:
+            checkserveridentity: false
+            trust: live.smtp.mailtrap.io
+
+server:
+  port: 8099
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
