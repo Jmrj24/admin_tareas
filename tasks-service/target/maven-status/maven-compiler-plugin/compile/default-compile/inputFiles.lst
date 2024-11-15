@@ -1,0 +1,9 @@
+C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\tasks-service\src\main\java\com\example\tasks_service\controller\TaskController.java
+C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\tasks-service\src\main\java\com\example\tasks_service\dto\NotificationsDTO.java
+C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\tasks-service\src\main\java\com\example\tasks_service\dto\TaskDTO.java
+C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\tasks-service\src\main\java\com\example\tasks_service\model\Task.java
+C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\tasks-service\src\main\java\com\example\tasks_service\repository\IApiNotifications.java
+C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\tasks-service\src\main\java\com\example\tasks_service\repository\ITaskRepository.java
+C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\tasks-service\src\main\java\com\example\tasks_service\service\ITaskService.java
+C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\tasks-service\src\main\java\com\example\tasks_service\service\TaskService.java
+C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\tasks-service\src\main\java\com\example\tasks_service\TasksServiceApplication.java

@@ -1,0 +1,9 @@
+com\example\tasks_service\model\Task.class
+com\example\tasks_service\repository\IApiNotifications.class
+com\example\tasks_service\dto\NotificationsDTO.class
+com\example\tasks_service\service\TaskService.class
+com\example\tasks_service\dto\TaskDTO.class
+com\example\tasks_service\repository\ITaskRepository.class
+com\example\tasks_service\service\ITaskService.class
+com\example\tasks_service\controller\TaskController.class
+com\example\tasks_service\TasksServiceApplication.class
