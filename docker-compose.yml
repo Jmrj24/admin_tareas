@@ -1,0 +1,85 @@
+version: '3'
+
+services:
+  eureka-sv:
+    build: eureka-sv
+    mem_limit: 512m
+    ports:
+      - "8761:8761"
+    networks:
+      - 'admintareasnetwork'
+  config-server:
+    build: config-server
+    mem_limit: 2048m
+    ports:
+      - "8098:8098"
+    networks:
+      - 'admintareasnetwork'
+    environment:
+      GIT_USER: Jmrj24
+      GIT_PASSWORD: 82269524Jj31
+  api-gateway:
+    build: api-gateway
+    mem_limit: 512m
+    ports:
+      - "443:443"
+    networks:
+      - 'admintareasnetwork'
+  users-service:
+    build: users-service
+    mem_limit: 512m
+    ports:
+      - "8090:8090"
+    networks:
+      - 'admintareasnetwork'
+    environment:
+      DB_URL: jdbc:mysql://service_admin_tareas_bd:3306/sat_users_service?createDatabaseIfNotExist=true&serverTimezone=UTC
+      DB_USER: root
+      DB_PASSWORD: admin
+    restart: always
+    depends_on:
+      service_admin_tareas_bd:
+          condition: service_healthy
+  service_admin_tareas_bd:
+    image: mysql:8.3.0 
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_PASSWORD: 1234
+      MYSQL_DATABASE: service_admin_tareas_bd
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 10  
+    networks:
+      - 'admintareasnetwork'
+  tasks-service:
+    build: tasks-service
+    mem_limit: 512m
+    ports:
+      - "8092:8092"
+    networks:
+      - 'admintareasnetwork'
+    environment:
+      DB_URL: jdbc:mysql://service_admin_tareas_bd:3306/sat_tasks_service?createDatabaseIfNotExist=true&serverTimezone=UTC
+      DB_USER: root
+      DB_PASSWORD: admin
+    restart: always
+    depends_on:
+      service_admin_tareas_bd:
+          condition: service_healthy 
+  notifications-service:
+    build: notifications-service
+    mem_limit: 512m
+    ports:
+      - "8099:8099"
+    networks:
+      - 'admintareasnetwork'
+    environment:
+      USER_MAIL: smtp@mailtrap.io
+      PASSWORD_MAIL: 0fee5a7171aeaa2b36d535df407df2a2
+      
+networks:
+  admintareasnetwork:

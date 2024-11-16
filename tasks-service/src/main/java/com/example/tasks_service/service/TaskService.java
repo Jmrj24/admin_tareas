@@ -36,9 +36,10 @@ public class TaskService implements ITaskService {
 
     private static final Logger logger = LoggerFactory.getLogger(TaskService.class);
 
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy");
+
     @Override
     public void createTask(TaskDTO taskDTO) {
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy");
         Task task = new Task();
         task.setTitle(taskDTO.getTitle());
         task.setDescription(taskDTO.getDescription());
