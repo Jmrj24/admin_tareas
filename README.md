@@ -33,3 +33,9 @@ Spring Boot y Spring Cloud
 Docker y Docker Compose
 MySQL como base de datos principal
 Postman para pruebas de API
+Pruebas
+Los endpoints han sido probados utilizando Postman.
+El envío de notificaciones funciona correctamente cuando se cumplen los eventos configurados.
+Próximos Pasos
+Incorporar un sistema de autenticación y autorización (como JWT o API Keys).
+Mejorar la documentación detallada de los endpoints.
