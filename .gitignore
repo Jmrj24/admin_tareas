@@ -2,6 +2,8 @@ HELP.md
 
 variables.env
 
+docker-compose-original.yml
+
 
 ### STS ###
 .apt_generated
