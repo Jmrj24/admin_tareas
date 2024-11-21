@@ -7,7 +7,7 @@ services:
     ports:
       - "8761:8761"
     networks:
-      - admintareasnetwork
+      - 'admintareasnetwork'
 
   config-server:
     build: config-server
@@ -15,7 +15,7 @@ services:
     ports:
       - "8098:8098"
     networks:
-      - admintareasnetwork
+      - 'admintareasnetwork'
     environment:
       GIT_USER: ${GIT_USER}
       GIT_PASSWORD: ${GIT_PASSWORD}
@@ -26,7 +26,7 @@ services:
     ports:
       - "443:443"
     networks:
-      - admintareasnetwork
+      - 'admintareasnetwork'
 
   users-service:
     build: users-service
@@ -34,18 +34,18 @@ services:
     ports:
       - "8090:8090"
     networks:
-      - admintareasnetwork
+      - 'admintareasnetwork'
     environment:
-      DB_URL: jdbc:mysql://service_admin_tareas_bd:3306/sat_users_service?createDatabaseIfNotExist=true&serverTimezone=UTC
+      DB_URL: ${DB_URL_USERS}
       DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
+      DB_PASSWORD: ${DB_PASSWORD_USERS}
     restart: always
     depends_on:
       service_admin_tareas_bd:
-        condition: service_healthy
+          condition: service_healthy
 
   service_admin_tareas_bd:
-    image: mysql:8.3.0
+    image: mysql:8.3.0 
     ports:
       - "3307:3306"
     environment:
@@ -54,11 +54,11 @@ services:
       MYSQL_DATABASE: service_admin_tareas_bd
     restart: always
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 10s
-      retries: 10
+      retries: 10  
     networks:
-      - admintareasnetwork
+      - 'admintareasnetwork'
 
   tasks-service:
     build: tasks-service
@@ -66,15 +66,15 @@ services:
     ports:
       - "8092:8092"
     networks:
-      - admintareasnetwork
+      - 'admintareasnetwork'
     environment:
-      DB_URL: jdbc:mysql://service_admin_tareas_bd:3306/sat_tasks_service?createDatabaseIfNotExist=true&serverTimezone=UTC
+      DB_URL: ${DB_URL_TASKS}
       DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
+      DB_PASSWORD: ${DB_PASSWORD_USERS}
     restart: always
     depends_on:
       service_admin_tareas_bd:
-        condition: service_healthy
+          condition: service_healthy 
 
   notifications-service:
     build: notifications-service
@@ -82,10 +82,10 @@ services:
     ports:
       - "8099:8099"
     networks:
-      - admintareasnetwork
+      - 'admintareasnetwork'
     environment:
       USER_MAIL: ${USER_MAIL}
       PASSWORD_MAIL: ${PASSWORD_MAIL}
-
+      
 networks:
   admintareasnetwork:
