@@ -1,35 +1,56 @@
-Sistema de Gestión de Tareas
-Este es un proyecto backend basado en microservicios, diseñado para gestionar tareas con características como creación, asignación, notificaciones y más. Es ideal para demostrar habilidades en el desarrollo de aplicaciones distribuidas con Java y Spring.
+# Sistema de Gestión de Tareas
 
-Características
-Arquitectura de Microservicios: Servicios independientes que interactúan entre sí.
-Configuración Centralizada: Implementado con Spring Cloud Config.
-Service Discovery: Manejo de servicios dinámicos con Eureka.
-Gateway API: Punto de entrada único para las solicitudes.
-Circuit Breaker: Resiliencia mediante gestión de fallos.
-Notificaciones: Integración para enviar correos electrónicos en eventos clave.
-Arquitectura y Comunicación entre Microservicios
-El sistema está compuesto por tres microservicios principales que interactúan de la siguiente manera:
+Este proyecto es una aplicación basada en microservicios para la gestión de tareas. Está diseñada para ser escalable, modular y fácilmente integrable con otros sistemas.
 
-1. Servicio de Usuarios
-Maneja el registro, actualización y gestión de usuarios.
-Se comunica con:
-Servicio de Tareas: Proporciona información sobre usuarios asociados a tareas.
-Servicio de Notificaciones: Genera notificaciones relacionadas con los usuarios.
-2. Servicio de Tareas
-Permite la creación, actualización y eliminación de tareas.
-Informa al Servicio de Notificaciones sobre eventos clave (nuevas tareas, actualizaciones, etc.).
-Depende del Servicio de Usuarios para asignar tareas a responsables.
-3. Servicio de Notificaciones
-Recibe eventos de los otros servicios y genera notificaciones (por ejemplo, correos electrónicos).
-Configurado para manejar tanto mensajes directos como eventos asincrónicos en el futuro.
-Comunicación
-Todos los microservicios están registrados en Eureka para el descubrimiento de servicios.
-Las solicitudes pasan a través del API Gateway, lo que asegura un punto de entrada centralizado.
-Circuit Breaker garantiza que fallos en un servicio no afecten a los demás.
-Tecnologías Usadas
-Java 17
-Spring Boot y Spring Cloud
-Docker y Docker Compose
-MySQL como base de datos principal
-Postman para pruebas de API
+## Funcionalidades
+
+- Gestión de usuarios:
+  - Creación, actualización y eliminación de usuarios.
+- Gestión de tareas:
+  - Creación, actualización y eliminación de tareas.
+  - Relación de tareas con usuarios.
+- Notificaciones:
+  - Envío de notificaciones por correo electrónico sobre cambios relevantes en las tareas o usuarios.
+- Configuración centralizada:
+  - Uso de Spring Cloud Config para centralizar configuraciones de los microservicios.
+- Registro y descubrimiento:
+  - Eureka para la gestión de servicios.
+
+## Arquitectura
+
+El sistema está compuesto por los siguientes microservicios:
+
+1. **Eureka Server**:
+   - Servicio de registro y descubrimiento para microservicios.
+
+2. **Config Server**:
+   - Centraliza la configuración de todos los microservicios.
+
+3. **API Gateway**:
+   - Punto de entrada único para enrutar solicitudes a los microservicios correspondientes.
+
+4. **Users Service**:
+   - Administra los usuarios del sistema.
+
+5. **Tasks Service**:
+   - Administra las tareas asignadas a los usuarios.
+
+6. **Notifications Service**:
+   - Envía notificaciones relacionadas con los eventos del sistema.
+
+## Requisitos
+
+- **Java 17**
+- **Spring Boot 3.1+**
+- **Docker**
+- **MySQL 8.3+**
+
+Docker Compose
+El archivo docker-compose.example.yml está incluido en este repositorio para que puedas levantar los servicios fácilmente. Recuerda copiarlo como docker-compose.yml
+
+## Tecnologías utilizadas
+- **Spring Boot (con Spring Cloud Config, Eureka, etc.)**
+- **Docker**
+- **MySQL**
+- **Postman (para pruebas)**
+- **JPA/Hibernate**
