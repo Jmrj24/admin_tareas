@@ -1,6 +1,11 @@
 server:
   port: 8098
 
+eureka:
+  client:
+    service-url:
+      defaultZone: https://admintareas-production.up.railway.app/
+
 spring:
   application:
     name: config-server
@@ -14,7 +19,4 @@ spring:
           username: ${GIT_USER}
           password: ${GIT_PASSWORD}
 
-eureka:
-  client:
-    service-url:
-      defaultZone: https://admintareas-production.up.railway.app/
+
