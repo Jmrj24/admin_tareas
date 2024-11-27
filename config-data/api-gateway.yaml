@@ -1,6 +1,15 @@
 spring:
   application:
     name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: users-service-route
+          uri: lb://USERS-SERVICE
+          predicates:
+            - Path=/users/**
+          filters:
+            - StripPrefix=1
 
   cloud:
     gateway:
