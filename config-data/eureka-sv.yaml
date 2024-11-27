@@ -12,13 +12,5 @@ eureka:
 
   instance:
     lease-renewal-interval-in-seconds: 0
-    hostname: admintareas-production.up.railway.app
-    non-secure-port-enabled: false
-    secure-port-enabled: true
-    secure-port: 443
-    prefer-ip-address: false
-    home-page-url: https://admintareas-production.up.railway.app/
-    status-page-url: https://admintareas-production.up.railway.app/eureka/status
-    health-check-url: https://admintareas-production.up.railway.app/eureka/health
 
 
