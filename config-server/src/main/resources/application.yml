@@ -17,9 +17,4 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: https://admintareas-production.up.railway.app
-
-logging:
-  level:
-    com.netflix.discovery: DEBUG
-    com.netflix.eureka: DEBUG
+      defaultZone: https://admintareas-production.up.railway.app/eureka/

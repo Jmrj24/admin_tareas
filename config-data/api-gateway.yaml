@@ -10,9 +10,9 @@ spring:
           lower-case-service-id: true
 
 server:
-  port: 9090
+  port: 443
   
 eureka:
   client:
     service-url:
-      defaultZone: https://admintareas-production.up.railway.app/
+      defaultZone: https://admintareas-production.up.railway.app/eureka/
