@@ -17,6 +17,6 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: https://admintareas-production.up.railway.app/eureka/
+      defaultZone: https://admintareas-production.up.railway.app/
     register-with-eureka: true
     fetch-registry: true
