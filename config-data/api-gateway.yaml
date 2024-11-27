@@ -4,10 +4,7 @@ spring:
   cloud:
     gateway:
       routes:
-          uri: lb://USERS-SERVICE
-
-  cloud:
-    gateway:
+          uri: https://users-service-production-d729.up.railway.app/
       discovery:
         locator:
           enabled: true
