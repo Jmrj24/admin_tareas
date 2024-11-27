@@ -3,8 +3,6 @@ spring:
     name: api-gateway
   cloud:
     gateway:
-      routes:
-          uri: https://users-service-production-d729.up.railway.app/
       discovery:
         locator:
           enabled: true
