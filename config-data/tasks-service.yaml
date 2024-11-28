@@ -16,6 +16,8 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: https://admintareas-production.up.railway.app/eureka/
-
+      defaultZone: http://eureka-sv.railway.internal:8761/eureka/
+  instance:
+    hostname: tasks-service.railway.internal
+    prefer-ip-address: false
   
