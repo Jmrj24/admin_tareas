@@ -3,10 +3,10 @@ spring:
     name: api-gateway
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
+      routes:
+        - id: users-service-route
+          uri: lb://USERS-SERVICE
+
 
 server:
   port: 443
