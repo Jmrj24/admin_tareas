@@ -3,10 +3,10 @@ spring:
     name: api-gateway
   cloud:
     gateway:
-      routes:
-        - id: users-service-route
-          uri: https://users-service-production-d729.up.railway.app/
-
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
 
 server:
   port: 443
