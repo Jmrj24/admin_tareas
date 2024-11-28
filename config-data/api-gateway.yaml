@@ -5,7 +5,7 @@ spring:
     gateway:
       routes:
         - id: users-service-route
-          uri: lb://USERS-SERVICE
+          uri: https://users-service-production-d729.up.railway.app/
 
 
 server:
