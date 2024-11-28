@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.example.notifications_service.NotificationsServiceApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.456 s -- in com.example.notifications_service.NotificationsServiceApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.826 s -- in com.example.notifications_service.NotificationsServiceApplicationTests
