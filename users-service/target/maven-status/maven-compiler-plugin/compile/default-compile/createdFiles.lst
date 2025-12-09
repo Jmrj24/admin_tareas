@@ -1,0 +1,10 @@
+com\example\users_service\service\UserService.class
+com\example\users_service\UsersServiceApplication.class
+com\example\users_service\controller\UserController.class
+com\example\users_service\dto\UserTaskDTO.class
+com\example\users_service\dto\TaskDTO.class
+com\example\users_service\repository\IApiTask.class
+com\example\users_service\repository\IUserRepository.class
+com\example\users_service\dto\UserDTO.class
+com\example\users_service\model\User.class
+com\example\users_service\service\IUserService.class
