@@ -17,7 +17,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://eureka-sv.railway.internal:8761/eureka/
+      defaultZone: http://eureka-sv.onrender.com/eureka/
   instance:
-    hostname: config-server.railway.internal
+    hostname: config-server-vrmb.onrender.com
     prefer-ip-address: false
