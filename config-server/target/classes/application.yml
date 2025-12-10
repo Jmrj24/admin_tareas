@@ -9,7 +9,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/Jmrj24/admin_tareas.git
+          uri: https://github.com/Jmrj24/config_data_admin_tareas.git
           searchPaths: config-data
           username: ${GIT_USER}
           password: ${GIT_PASSWORD}
