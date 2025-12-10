@@ -17,9 +17,11 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://eureka-sv.railway.internal:8761/eureka/
+      defaultZone: http://eureka-sv.onrender.com/eureka/
   instance:
-    hostname: users-service.railway.internal
+    hostname: users-service-gew3.onrender.com
     prefer-ip-address: false
-
+    secure-port-enabled: true 
+    secure-port: 443
+    non-secure-port-enabled: false
 

@@ -2,29 +2,24 @@ spring:
   application:
     name: notifications-service
 
-  mail:
-    host: live.smtp.mailtrap.io
-    port: 587
-    username: ${USER_MAIL}
-    password: ${PASSWORD_MAIL}
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-            required: true
-          ssl:
-            checkserveridentity: false
-            trust: live.smtp.mailtrap.io
-
 server:
   port: 8099
 
 eureka:
   client:
     service-url:
-      defaultZone: http://eureka-sv.railway.internal:8761/eureka/
+      defaultZone: http://eureka-sv.onrender.com/eureka/
   instance:
-    hostname: notifications-service.railway.internal
+    hostname: notifications-service-plf6.onrender.com
     prefer-ip-address: false
+    secure-port-enabled: true 
+    secure-port: 443
+    non-secure-port-enabled: false
+
+mailtrap:
+  api:
+    token: ${PASSWORD_MAIL}
+  sender: 
+    email: hello@demomailtrap.com
+    name: Notificaciones Administrador de Tareas
+  
