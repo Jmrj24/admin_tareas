@@ -3,6 +3,7 @@ HELP.md
 variables.env
 
 docker-compose-original.yml
+/config-data
 
 
 ### STS ###
