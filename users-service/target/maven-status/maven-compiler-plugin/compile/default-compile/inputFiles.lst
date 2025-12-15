@@ -1,7 +1,12 @@
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\users-service\src\main\java\com\example\users_service\controller\UserController.java
+C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\users-service\src\main\java\com\example\users_service\dto\ErrorResponse.java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\users-service\src\main\java\com\example\users_service\dto\TaskDTO.java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\users-service\src\main\java\com\example\users_service\dto\UserDTO.java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\users-service\src\main\java\com\example\users_service\dto\UserTaskDTO.java
+C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\users-service\src\main\java\com\example\users_service\exception\BadRequestException.java
+C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\users-service\src\main\java\com\example\users_service\exception\ConflictException.java
+C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\users-service\src\main\java\com\example\users_service\exception\GlobalExceptionHandler.java
+C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\users-service\src\main\java\com\example\users_service\exception\NotFoundException.java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\users-service\src\main\java\com\example\users_service\model\User.java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\users-service\src\main\java\com\example\users_service\repository\IApiTask.java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\users-service\src\main\java\com\example\users_service\repository\IUserRepository.java

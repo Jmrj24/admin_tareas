@@ -9,15 +9,9 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/Jmrj24/config_data_admin_tareas.git
+          uri: https://github.com/Jmrj24/config_data_admin_tareas_local.git
           searchPaths: config-data
           username: ${GIT_USER}
           password: ${GIT_PASSWORD}
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://eureka-sv.onrender.com/eureka/
-  instance:
-    hostname: config-server-vrmb.onrender.com
-    prefer-ip-address: false
+

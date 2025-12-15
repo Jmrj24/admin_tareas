@@ -4,7 +4,10 @@ import com.example.users_service.dto.UserDTO;
 import com.example.users_service.dto.UserTaskDTO;
 import com.example.users_service.model.User;
 import com.example.users_service.service.IUserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,26 +19,24 @@ public class UserController {
     private IUserService userServ;
 
     @PostMapping("/create")
-    public String saveUser(@RequestBody UserDTO userDTO) {
-        userServ.createUser(userDTO);
-        return "Usuario creado con exito!";
+    public ResponseEntity<User> saveUser(@Valid @RequestBody UserDTO userDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userServ.createUser(userDTO));
     }
 
     @GetMapping("/get")
-    public List<User> getAllUsers() {
-        return userServ.getAllUsers();
+    public ResponseEntity<List<User>> getAllUsers() {
+        return ResponseEntity.ok(userServ.getAllUsers());
     }
 
     @DeleteMapping("/delete/{idUser}")
-    public String deleteUser(@PathVariable Long idUser) {
+    public ResponseEntity<Void> deleteUser(@PathVariable Long idUser) {
         userServ.deleteUser(idUser);
-        return "Usuario eliminado con exito!";
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PutMapping("/edit")
-    public User editUser(@RequestBody User user) {
-        userServ.editUser(user);
-        return userServ.getByIdUser(user.getId());
+    @PutMapping("/edit/{idUser}")
+    public ResponseEntity<User> editUser(@PathVariable Long idUser, @Valid @RequestBody UserDTO userDTO) {
+        return ResponseEntity.ok(userServ.editUser(idUser, userDTO));
     }
 
     @GetMapping("/get/task/{idUser}")
@@ -44,7 +45,7 @@ public class UserController {
     }
 
     @GetMapping("/get/{idUser}")
-    public User getUserById(@PathVariable Long idUser) {
-        return userServ.getByIdUser(idUser);
+    public ResponseEntity<User> getUserById(@PathVariable Long idUser) {
+        return ResponseEntity.ok(userServ.getByIdUser(idUser));
     }
 }

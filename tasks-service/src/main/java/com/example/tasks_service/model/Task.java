@@ -1,9 +1,6 @@
 package com.example.tasks_service.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,8 +20,10 @@ public class Task {
     private String description;
     private LocalDateTime dateCreation;
     private LocalDateTime dateExpiration;
-    private String state;
-    private String priority;
+    @Enumerated(EnumType.STRING)
+    private TaskStatus status;
+    @Enumerated(EnumType.STRING)
+    private TaskPriority priority;
     private boolean notifications;
     private Long idUser;
 }

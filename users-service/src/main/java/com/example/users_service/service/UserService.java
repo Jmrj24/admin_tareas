@@ -1,13 +1,14 @@
 package com.example.users_service.service;
 
-import com.example.users_service.dto.TaskDTO;
 import com.example.users_service.dto.UserDTO;
 import com.example.users_service.dto.UserTaskDTO;
+import com.example.users_service.exception.ConflictException;
 import com.example.users_service.model.User;
 import com.example.users_service.repository.IApiTask;
 import com.example.users_service.repository.IUserRepository;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
+import jakarta.ws.rs.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +24,15 @@ public class UserService implements IUserService {
     private IApiTask apiTask;
 
     @Override
-    public void createUser(UserDTO userDTO) {
+    public User createUser(UserDTO userDTO) {
+        if(userRepo.findByMail(userDTO.getMail()).isPresent()) {
+            throw new ConflictException("Mail: " + userDTO.getMail() + " ya se encuentra registrado");
+        }
         User user = new User();
         user.setName(userDTO.getName());
         user.setMail(userDTO.getMail());
         user.setDateCreation(LocalDate.now());
-        userRepo.save(user);
+        return userRepo.save(user);
     }
 
     @Override
@@ -38,7 +42,7 @@ public class UserService implements IUserService {
 
     @Override
     public User getByIdUser(Long idUser) {
-        return userRepo.findById(idUser).orElse(null);
+        return userRepo.findById(idUser).orElseThrow(() -> new NotFoundException("Usuario no Encontrado"));
     }
 
     @Override
@@ -47,8 +51,14 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void editUser(User user) {
-        userRepo.save(user);
+    public User editUser(Long idUser, UserDTO userDTO) {
+        if(!userRepo.existsById(idUser)) {
+            throw new NotFoundException("Usuario no encontrado");
+        }
+        User userEdit = getByIdUser(idUser);
+        userEdit.setName(userDTO.getName());
+        userEdit.setMail(userDTO.getMail());
+        return userRepo.save(userEdit);
     }
 
     @Override

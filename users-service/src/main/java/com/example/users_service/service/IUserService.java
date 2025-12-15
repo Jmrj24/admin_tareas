@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IUserService {
     // Metodo para crear usuarios
-    public void createUser(UserDTO userDTO);
+    public User createUser(UserDTO userDTO);
 
     // Metodo para listar todos los usuarios
     public List<User> getAllUsers();
@@ -20,7 +20,7 @@ public interface IUserService {
     public void deleteUser(Long idUser);
 
     // Metodo para editar un usuario
-    public void editUser(User user);
+    public User editUser(Long idUser, UserDTO userDTO);
 
     // Metodo para listar todas las tareas de un usuario
     public UserTaskDTO getAllTasksByUser(Long idUser);

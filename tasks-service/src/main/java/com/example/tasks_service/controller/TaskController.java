@@ -1,10 +1,14 @@
 package com.example.tasks_service.controller;
 
 import com.example.tasks_service.dto.TaskDTO;
+import com.example.tasks_service.dto.TaskEditDTO;
 import com.example.tasks_service.model.Task;
 import com.example.tasks_service.service.ITaskService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,26 +23,24 @@ public class TaskController {
     private int serverPort;
 
     @PostMapping("/create")
-    public String createTask(@RequestBody TaskDTO taskDTO) {
-        taskServ.createTask(taskDTO);
-        return "Tarea creada exitosamente!";
+    public ResponseEntity<Task> createTask(@Valid @RequestBody TaskDTO taskDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(taskServ.createTask(taskDTO));
     }
 
     @GetMapping("/get")
-    public List<Task> getAllTasks() {
-        return taskServ.getAllTasks();
+    public ResponseEntity<List<Task>> getAllTasks() {
+        return ResponseEntity.ok(taskServ.getAllTasks());
     }
 
     @DeleteMapping("/delete/{idTask}")
-    public String deleteTask(@PathVariable Long idTask) {
+    public ResponseEntity<Void> deleteTask(@PathVariable Long idTask) {
         taskServ.deleteTask(idTask);
-        return "Tarea eliminada de manera exitosa!";
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PutMapping("/edit")
-    public Task editTask(@RequestBody Task task) {
-        taskServ.editTask(task);
-        return taskServ.getByIdTask(task.getId());
+    @PutMapping("/edit/{idTask}")
+    public ResponseEntity<Task> editTask(@PathVariable Long idTask, @Valid @RequestBody TaskEditDTO taskEditDTO) {
+        return ResponseEntity.ok(taskServ.editTask(idTask, taskEditDTO));
     }
 
     @GetMapping("/get/{idUser}")
