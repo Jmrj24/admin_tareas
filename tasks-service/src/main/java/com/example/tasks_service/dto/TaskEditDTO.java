@@ -15,15 +15,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter @Setter
 public class TaskEditDTO {
-    @NotBlank
     private String title;
     private String description;
-    @NotNull
     private LocalDateTime dateExpiration;
-    @NotNull
     private TaskStatus status;
-    @NotNull
     private TaskPriority priority;
-    @NotNull
-    private boolean notifications;
+    private Boolean notifications;
 }

@@ -14,4 +14,7 @@ spring:
           username: ${GIT_USER}
           password: ${GIT_PASSWORD}
 
-
+#eureka:
+  #instance:
+  #  hostname: config-server-vrmb.onrender.com
+  #  prefer-ip-address: false

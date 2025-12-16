@@ -1,15 +1,13 @@
 com\example\users_service\exception\BadRequestException.class
-com\example\users_service\dto\TaskDTO.class
 com\example\users_service\exception\NotFoundException.class
-com\example\users_service\dto\UserDTO.class
 com\example\users_service\model\User.class
 com\example\users_service\service\IUserService.class
 com\example\users_service\service\UserService.class
 com\example\users_service\UsersServiceApplication.class
 com\example\users_service\controller\UserController.class
-com\example\users_service\dto\UserTaskDTO.class
 com\example\users_service\exception\ConflictException.class
-com\example\users_service\repository\IApiTask.class
 com\example\users_service\exception\GlobalExceptionHandler.class
 com\example\users_service\repository\IUserRepository.class
 com\example\users_service\dto\ErrorResponse.class
+com\example\users_service\dto\UserEditDTO.class
+com\example\users_service\dto\UserCreateDTO.class

@@ -1,7 +1,7 @@
 package com.example.users_service.controller;
 
-import com.example.users_service.dto.UserDTO;
-import com.example.users_service.dto.UserTaskDTO;
+import com.example.users_service.dto.UserCreateDTO;
+import com.example.users_service.dto.UserEditDTO;
 import com.example.users_service.model.User;
 import com.example.users_service.service.IUserService;
 import jakarta.validation.Valid;
@@ -19,8 +19,8 @@ public class UserController {
     private IUserService userServ;
 
     @PostMapping("/create")
-    public ResponseEntity<User> saveUser(@Valid @RequestBody UserDTO userDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userServ.createUser(userDTO));
+    public ResponseEntity<User> saveUser(@Valid @RequestBody UserCreateDTO userCreateDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userServ.createUser(userCreateDTO));
     }
 
     @GetMapping("/get")
@@ -35,13 +35,8 @@ public class UserController {
     }
 
     @PutMapping("/edit/{idUser}")
-    public ResponseEntity<User> editUser(@PathVariable Long idUser, @Valid @RequestBody UserDTO userDTO) {
-        return ResponseEntity.ok(userServ.editUser(idUser, userDTO));
-    }
-
-    @GetMapping("/get/task/{idUser}")
-    public UserTaskDTO getAllTasksByUser(@PathVariable Long idUser) {
-        return userServ.getAllTasksByUser(idUser);
+    public ResponseEntity<User> editUser(@PathVariable Long idUser, @Valid @RequestBody UserEditDTO userEditDTO) {
+        return ResponseEntity.ok(userServ.editUser(idUser, userEditDTO));
     }
 
     @GetMapping("/get/{idUser}")

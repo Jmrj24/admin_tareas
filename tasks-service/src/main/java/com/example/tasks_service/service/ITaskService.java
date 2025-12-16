@@ -1,6 +1,6 @@
 package com.example.tasks_service.service;
 
-import com.example.tasks_service.dto.TaskDTO;
+import com.example.tasks_service.dto.TaskCreateDTO;
 import com.example.tasks_service.dto.TaskEditDTO;
 import com.example.tasks_service.model.Task;
 
@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ITaskService {
     // Metodo para crear tareas
-    public Task createTask(TaskDTO taskDTO);
+    public Task createTask(TaskCreateDTO taskCreateDTO);
 
     // Metodo para listar todas las tareas
     public List<Task> getAllTasks();

@@ -1,4 +1,5 @@
 com\example\tasks_service\exception\GlobalExceptionHandler.class
+com\example\tasks_service\dto\TaskCreateDTO.class
 com\example\tasks_service\repository\IApiNotifications.class
 com\example\tasks_service\dto\TaskEditDTO.class
 com\example\tasks_service\dto\ErrorResponse.class
@@ -12,7 +13,6 @@ com\example\tasks_service\model\TaskPriority.class
 com\example\tasks_service\dto\NotificationsDTO.class
 com\example\tasks_service\service\TaskService.class
 com\example\tasks_service\exception\NotFoundException.class
-com\example\tasks_service\dto\TaskDTO.class
 com\example\tasks_service\repository\ITaskRepository.class
 com\example\tasks_service\repository\IApiUsers.class
 com\example\tasks_service\controller\TaskController.class

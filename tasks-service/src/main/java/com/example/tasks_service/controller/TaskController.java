@@ -1,6 +1,6 @@
 package com.example.tasks_service.controller;
 
-import com.example.tasks_service.dto.TaskDTO;
+import com.example.tasks_service.dto.TaskCreateDTO;
 import com.example.tasks_service.dto.TaskEditDTO;
 import com.example.tasks_service.model.Task;
 import com.example.tasks_service.service.ITaskService;
@@ -23,8 +23,8 @@ public class TaskController {
     private int serverPort;
 
     @PostMapping("/create")
-    public ResponseEntity<Task> createTask(@Valid @RequestBody TaskDTO taskDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(taskServ.createTask(taskDTO));
+    public ResponseEntity<Task> createTask(@Valid @RequestBody TaskCreateDTO taskCreateDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(taskServ.createTask(taskCreateDTO));
     }
 
     @GetMapping("/get")
@@ -43,10 +43,12 @@ public class TaskController {
         return ResponseEntity.ok(taskServ.editTask(idTask, taskEditDTO));
     }
 
-    @GetMapping("/get/{idUser}")
-    public List<Task> getAllTasksByIdUser(@PathVariable Long idUser) {
+    @GetMapping("/get/user/{idUser}")
+    public ResponseEntity<List<Task>> getAllTasksByIdUser(@PathVariable Long idUser) {
         // Creado para verificar el funcionamiento del LoadBalancing
         //System.out.println("-------------Desde: " + serverPort);
-        return taskServ.getAllTasksByIdUser(idUser);
+        return ResponseEntity.ok(taskServ.getAllTasksByIdUser(idUser));
     }
+
+
 }

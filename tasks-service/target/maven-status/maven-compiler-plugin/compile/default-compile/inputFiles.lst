@@ -1,7 +1,7 @@
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\tasks-service\src\main\java\com\example\tasks_service\controller\TaskController.java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\tasks-service\src\main\java\com\example\tasks_service\dto\ErrorResponse.java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\tasks-service\src\main\java\com\example\tasks_service\dto\NotificationsDTO.java
-C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\tasks-service\src\main\java\com\example\tasks_service\dto\TaskDTO.java
+C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\tasks-service\src\main\java\com\example\tasks_service\dto\TaskCreateDTO.java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\tasks-service\src\main\java\com\example\tasks_service\dto\TaskEditDTO.java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\tasks-service\src\main\java\com\example\tasks_service\dto\UserDTO.java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\tasks-service\src\main\java\com\example\tasks_service\exception\BadRequestException.java

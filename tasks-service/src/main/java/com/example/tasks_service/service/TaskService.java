@@ -1,17 +1,19 @@
 package com.example.tasks_service.service;
 
 import com.example.tasks_service.dto.NotificationsDTO;
-import com.example.tasks_service.dto.TaskDTO;
+import com.example.tasks_service.dto.TaskCreateDTO;
 import com.example.tasks_service.dto.TaskEditDTO;
 import com.example.tasks_service.exception.BadRequestException;
+import com.example.tasks_service.exception.NotFoundException;
 import com.example.tasks_service.model.Task;
+import com.example.tasks_service.model.TaskPriority;
 import com.example.tasks_service.model.TaskStatus;
 import com.example.tasks_service.repository.IApiNotifications;
 import com.example.tasks_service.repository.IApiUsers;
 import com.example.tasks_service.repository.ITaskRepository;
+import feign.FeignException;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
-import jakarta.ws.rs.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,22 +49,21 @@ public class TaskService implements ITaskService {
     DateTimeFormatter formato = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy");
 
     @Override
-    public Task createTask(TaskDTO taskDTO) {
-        if(apiUsers.getUserById(taskDTO.getIdUser()).isEmpty()) {
-            throw new NotFoundException("Usuario No existe");
-        }
-        if(taskDTO.getDateExpiration().isBefore(LocalDateTime.now())) {
+    public Task createTask(TaskCreateDTO taskCreateDTO) {
+        if(taskCreateDTO.getDateExpiration().isBefore(LocalDateTime.now())) {
             throw new BadRequestException("Fecha de expiracion de la tarea invalida");
         }
+        validateUserById(taskCreateDTO.getIdUser());
+
         Task task = new Task();
-        task.setTitle(taskDTO.getTitle());
-        task.setDescription(taskDTO.getDescription());
+        task.setTitle(taskCreateDTO.getTitle());
+        task.setDescription(taskCreateDTO.getDescription());
         task.setDateCreation(LocalDateTime.now());
-        task.setDateExpiration(taskDTO.getDateExpiration());
+        task.setDateExpiration(taskCreateDTO.getDateExpiration());
         task.setStatus(TaskStatus.PENDING);
-        task.setPriority(taskDTO.getPriority());
-        task.setNotifications(taskDTO.isNotifications());
-        task.setIdUser(taskDTO.getIdUser());
+        task.setPriority(taskCreateDTO.getPriority());
+        task.setNotifications(taskCreateDTO.isNotifications());
+        task.setIdUser(taskCreateDTO.getIdUser());
         if(task.isNotifications()) {
             expirationNotification(task);
             sendNotifications(task, "la tarea ha sido creada de forma exitosa, el dia "
@@ -88,27 +89,36 @@ public class TaskService implements ITaskService {
 
     @Override
     public Task editTask(Long idTask, TaskEditDTO taskEditDTO) {
-        if(!taskRepo.existsById(idTask)) {
-            throw new NotFoundException("Tarea no Encontrada");
-        }
-        if(taskEditDTO.getStatus().equals(TaskStatus.COMPLETED)) {
-            throw new BadRequestException("Tarea no editable, ya que su estado es Completada");
-        }
-        if(taskEditDTO.getDateExpiration().isBefore(LocalDateTime.now())) {
-            throw new BadRequestException("Fecha de expiracion de la tarea invalida");
-        }
         Task taskEdit = getByIdTask(idTask);
-        taskEdit.setTitle(taskEditDTO.getTitle());
-        taskEdit.setDescription(taskEditDTO.getDescription());
-        taskEdit.setDateExpiration(taskEditDTO.getDateExpiration());
-        taskEdit.setStatus(taskEditDTO.getStatus());
-        taskEdit.setPriority(taskEditDTO.getPriority());
-        taskEdit.setNotifications(taskEditDTO.isNotifications());
         if(taskEdit.getStatus().equals(TaskStatus.COMPLETED)) {
-            ScheduledFuture<?> taskFuture = TaskMap.get("task"+taskEdit.getId());
-            if(taskFuture!=null) {
-                taskFuture.cancel(true);
+            throw new BadRequestException("Tarea no editable, ya que su estado es " + TaskStatus.COMPLETED);
+        }
+        if(taskEditDTO.getDateExpiration()!=null) {
+            if(taskEditDTO.getDateExpiration().isBefore(LocalDateTime.now())) {
+                throw new BadRequestException("Fecha de expiracion de la tarea invalida");
             }
+            taskEdit.setDateExpiration(taskEditDTO.getDateExpiration());
+        }
+        if(taskEditDTO.getTitle()!=null) {
+            taskEdit.setTitle(taskEditDTO.getTitle());
+        }
+        if(taskEditDTO.getDescription()!=null) {
+            taskEdit.setDescription(taskEditDTO.getDescription());
+        }
+        if(taskEditDTO.getStatus()!=null) {
+            taskEdit.setStatus(taskEditDTO.getStatus());
+            if(taskEdit.getStatus().equals(TaskStatus.COMPLETED)) {
+                ScheduledFuture<?> taskFuture = TaskMap.get("task"+taskEdit.getId());
+                if(taskFuture!=null) {
+                    taskFuture.cancel(true);
+                }
+            }
+        }
+        if(taskEditDTO.getPriority()!=null) {
+            taskEdit.setPriority(taskEditDTO.getPriority());
+        }
+        if(taskEditDTO.getNotifications()!=null) {
+            taskEdit.setNotifications(taskEditDTO.getNotifications());
         }
         if(taskEdit.isNotifications()) {
             sendNotifications(taskEdit, "la tarea ha sido actualizada de forma exitosa y su estado es: "
@@ -117,6 +127,7 @@ public class TaskService implements ITaskService {
         return taskRepo.save(taskEdit);
     }
 
+    //Listar todas las tareas de un usuario
     @Override
     public List<Task> getAllTasksByIdUser(Long idUser) {
         return taskRepo.getAllTaskByIdUser(idUser);
@@ -154,5 +165,13 @@ public class TaskService implements ITaskService {
 
     private void fallbackMethodSendNotifications(Throwable throwable) {
         logger.error("ALERTA INTERNA: Circuit Breaker activado. No se pudo enviar la notificación.", throwable);
+    }
+
+    public void validateUserById(Long idUser) {
+        try {
+            apiUsers.getUserById(idUser);
+        } catch (FeignException.NotFound e) {
+            throw new NotFoundException("Usuario No existe");
+        }
     }
 }
