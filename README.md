@@ -175,6 +175,8 @@ Obtener Tareas
 
 GET /tasks
 
+---
+
 🔄 Flujo de una Solicitud
 
 Ejemplo: creación de una tarea
@@ -183,7 +185,7 @@ Cliente → API Gateway
 
 API Gateway → Tasks Service
 
-Validación de datos
+Validación de datos de entrada
 
 Validación de usuario vía Users Service
 
@@ -191,7 +193,7 @@ Creación de la tarea
 
 Comunicación con Notification Service (si aplica)
 
-Respuesta al cliente
+Respuesta final al cliente
 
 🛠️ Tecnologías Utilizadas
 Backend
@@ -227,7 +229,7 @@ Postman
 🚀 Ejecución del Proyecto
 Ejecución Local
 
-Orden de arranque:
+Orden de arranque de los servicios:
 
 Config Server
 
@@ -243,15 +245,15 @@ Notification Service
 
 Ejecución con Docker
 
-Dockerfile por microservicio.
+Dockerfile por microservicio
 
-Orquestación con Docker Compose.
+Orquestación mediante Docker Compose
 
-Simulación de entorno distribuido.
+Simulación de un entorno distribuido completo
 
 🔐 Variables de Entorno
 
-Variables utilizadas:
+Variables utilizadas por los servicios:
 
 CONFIG_SERVER_URI
 
@@ -261,38 +263,41 @@ DB_USERNAME
 
 DB_PASSWORD
 
-Permiten adaptar el sistema sin modificar el código fuente.
+Estas variables permiten adaptar el sistema a distintos entornos
+sin necesidad de modificar el código fuente.
 
 🧠 Decisiones Técnicas
 
-Arquitectura de microservicios orientada a dominio.
+Arquitectura de microservicios orientada a dominio
 
-Configuración centralizada.
+Configuración centralizada con Config Server
 
-Comunicación declarativa con Feign.
+Comunicación declarativa entre servicios mediante Feign
 
-Resiliencia con Circuit Breaker.
+Resiliencia implementada con Circuit Breaker (Resilience4j)
 
-Balanceo de carga del lado del cliente.
+Balanceo de carga del lado del cliente
 
-Reglas de negocio implementadas en el backend.
+Reglas de negocio implementadas en el backend
 
 🔮 Mejoras Futuras
 
-Autenticación y autorización con Spring Security y JWT.
+Autenticación y autorización con Spring Security y JWT
 
-Tests de integración entre microservicios.
+Tests de integración entre microservicios
 
-Versionado de la API.
+Versionado de la API
 
 📚 Lecciones Aprendidas
 
-Importancia de las reglas de negocio en backend.
+Importancia de definir y aplicar reglas de negocio en el backend
 
-Complejidad real de sistemas distribuidos.
+Complejidad real de los sistemas distribuidos
 
-Valor de la configuración centralizada.
+Valor de la configuración centralizada
 
-Diferencia entre dividir servicios y diseñar una arquitectura distribuida.
+Diferencia entre dividir servicios y diseñar una arquitectura distribuida
 
-Importancia de documentar para terceros.
+Importancia de documentar correctamente un proyecto para terceros
+
+---
