@@ -9,12 +9,10 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/Jmrj24/config_data_admin_tareas_local.git
+          uri: ${CONFIG_SERVER_URI}
           searchPaths: config-data
           username: ${GIT_USER}
           password: ${GIT_PASSWORD}
+          default-label: master
 
-#eureka:
-  #instance:
-  #  hostname: config-server-vrmb.onrender.com
-  #  prefer-ip-address: false
+

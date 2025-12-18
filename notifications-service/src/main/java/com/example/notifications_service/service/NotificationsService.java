@@ -17,7 +17,6 @@ import java.util.List;
 @Service
 public class NotificationsService implements INotificationsService{
 
-
     @Autowired
     ExternalApiService externalApiService;
 
