@@ -149,7 +149,7 @@ Restricción:
 ## 📌 Endpoints Principales
 
 ### Crear una Tarea
-`POST /tasks`
+`POST /tasks/create`
 
 ```json
 {
@@ -163,7 +163,7 @@ Restricción:
 ```
 Editar una Tarea
 
-PUT /tasks/{taskId}
+PUT /tasks//edit/{idTask}
 ```json
 {
   "title": "Preparar presentación final",
@@ -173,131 +173,115 @@ PUT /tasks/{taskId}
 ```
 Obtener Tareas
 
-GET /tasks
+GET /tasks/get
 
 ---
 
-🔄 Flujo de una Solicitud
+## 🔄 Flujo de una Solicitud
 
-Ejemplo: creación de una tarea
+**Ejemplo: creación de una tarea**
 
-Cliente → API Gateway
-
-API Gateway → Tasks Service
-
-Validación de datos de entrada
-
-Validación de usuario vía Users Service
-
-Creación de la tarea
-
-Comunicación con Notification Service (si aplica)
-
-Respuesta final al cliente
-
-🛠️ Tecnologías Utilizadas
-Backend
-
-Java
-
-Spring Boot
-
-Spring Cloud
-
-Spring Cloud Config
-
-Spring Cloud OpenFeign
-
-Spring Cloud Gateway
-
-Eureka Server
-
-Resilience4j
-
-JPA / Hibernate
-
-MySQL
-
-Infraestructura
-
-Docker
-
-Testing / Herramientas
-
-Postman
-
-🚀 Ejecución del Proyecto
-Ejecución Local
-
-Orden de arranque de los servicios:
-
-Config Server
-
-Eureka Server
-
-API Gateway
-
-Users Service
-
-Tasks Service
-
-Notification Service
-
-Ejecución con Docker
-
-Dockerfile por microservicio
-
-Orquestación mediante Docker Compose
-
-Simulación de un entorno distribuido completo
-
-🔐 Variables de Entorno
-
-Variables utilizadas por los servicios:
-
-CONFIG_SERVER_URI
-
-DB_URL
-
-DB_USERNAME
-
-DB_PASSWORD
-
-Estas variables permiten adaptar el sistema a distintos entornos
-sin necesidad de modificar el código fuente.
-
-🧠 Decisiones Técnicas
-
-Arquitectura de microservicios orientada a dominio
-
-Configuración centralizada con Config Server
-
-Comunicación declarativa entre servicios mediante Feign
-
-Resiliencia implementada con Circuit Breaker (Resilience4j)
-
-Balanceo de carga del lado del cliente
-
-Reglas de negocio implementadas en el backend
-
-🔮 Mejoras Futuras
-
-Autenticación y autorización con Spring Security y JWT
-
-Tests de integración entre microservicios
-
-Versionado de la API
-
-📚 Lecciones Aprendidas
-
-Importancia de definir y aplicar reglas de negocio en el backend
-
-Complejidad real de los sistemas distribuidos
-
-Valor de la configuración centralizada
-
-Diferencia entre dividir servicios y diseñar una arquitectura distribuida
-
-Importancia de documentar correctamente un proyecto para terceros
+1. El cliente envía la solicitud al **API Gateway**.
+2. El **API Gateway** enruta la petición al **Tasks Service**.
+3. El **Tasks Service** valida los datos de entrada.
+4. Se valida la existencia del usuario mediante el **Users Service** (vía Feign).
+5. Se crea la tarea con estado inicial `PENDING`.
+6. Si la notificación está habilitada, se comunica con el **Notification Service**.
+7. La respuesta final se devuelve al cliente a través del **API Gateway**.
 
 ---
+
+## 🛠️ Tecnologías Utilizadas
+
+### Backend
+- Java
+- Spring Boot
+- Spring Cloud
+- Spring Cloud Config
+- Spring Cloud OpenFeign
+- Spring Cloud Gateway
+- Eureka Server
+- Resilience4j
+- JPA / Hibernate
+- MySQL
+
+### Infraestructura
+- Docker
+
+### Testing / Herramientas
+- Postman
+
+---
+
+## 🚀 Ejecución del Proyecto
+
+### Ejecución Local
+
+Para ejecutar el proyecto de forma local, iniciar los servicios en el siguiente orden:
+
+1. Config Server
+2. Eureka Server
+3. API Gateway
+4. Users Service
+5. Tasks Service
+6. Notification Service
+
+Cada servicio se ejecuta como una aplicación Spring Boot independiente y obtiene su configuración desde el **Config Server**.
+
+---
+
+### Ejecución con Docker
+
+- Cada microservicio cuenta con su propio `Dockerfile`.
+- El sistema completo se levanta utilizando **Docker Compose**.
+
+Esto permite:
+- Ejecutar todos los servicios de forma aislada.
+- Simular un entorno distribuido.
+- Simplificar el despliegue del sistema.
+
+---
+
+## 🔐 Variables de Entorno
+
+Las variables de entorno se definen por microservicio y permiten adaptar el sistema a distintos entornos sin modificar el código fuente.
+
+### Variables comunes
+- `CONFIG_SERVER_URI`
+
+### Servicios con Base de Datos (Users / Tasks)
+- `DB_URL`
+- `DB_USERNAME`
+- `DB_PASSWORD`
+
+> Cada microservicio posee su propia base de datos y configuración independiente, aunque los nombres de las variables sean los mismos.
+
+---
+
+## 🧠 Decisiones Técnicas
+
+- Arquitectura de microservicios orientada a dominio.
+- Configuración centralizada mediante Spring Cloud Config Server.
+- Comunicación declarativa entre servicios utilizando OpenFeign.
+- Implementación de resiliencia con Circuit Breaker (Resilience4j).
+- Balanceo de carga del lado del cliente con Spring Cloud LoadBalancer.
+- Reglas de negocio implementadas exclusivamente en el backend.
+
+---
+
+## 🔮 Mejoras Futuras
+
+- Implementar autenticación y autorización con Spring Security y JWT.
+- Incorporar tests de integración entre microservicios.
+- Implementar versionado de la API.
+- Agregar monitoreo y métricas (Spring Boot Actuator).
+
+---
+
+## 📚 Lecciones Aprendidas
+
+- La importancia de definir y aplicar reglas de negocio desde el backend.
+- La complejidad real de los sistemas distribuidos.
+- El valor de la configuración centralizada en arquitecturas de microservicios.
+- La diferencia entre dividir un sistema en servicios y diseñar una arquitectura distribuida.
+- La importancia de documentar correctamente un proyecto para terceros.
