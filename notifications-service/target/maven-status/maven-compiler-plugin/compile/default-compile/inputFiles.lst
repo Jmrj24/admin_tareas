@@ -1,8 +1,14 @@
+C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\notifications-service\src\main\java\com\example\notifications_service\config\MailtrapConfigBean.java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\notifications-service\src\main\java\com\example\notifications_service\controller\NotificationsController.java
+C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\notifications-service\src\main\java\com\example\notifications_service\dto\ErrorResponse.java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\notifications-service\src\main\java\com\example\notifications_service\dto\UserDTO.java
-C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\notifications-service\src\main\java\com\example\notifications_service\model\MailtrapConfigBean.java
+C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\notifications-service\src\main\java\com\example\notifications_service\exception\FailedExceptionNotifications.java
+C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\notifications-service\src\main\java\com\example\notifications_service\exception\GlobalExceptionHandler.java
+C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\notifications-service\src\main\java\com\example\notifications_service\exception\NotFoundExceptionNotifications.java
+C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\notifications-service\src\main\java\com\example\notifications_service\exception\ServiceUnavailableExceptionNotifications.java
+C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\notifications-service\src\main\java\com\example\notifications_service\infrastructure\ExternalApiService.java
+C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\notifications-service\src\main\java\com\example\notifications_service\infrastructure\IApiUser.java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\notifications-service\src\main\java\com\example\notifications_service\model\Notifications.java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\notifications-service\src\main\java\com\example\notifications_service\NotificationsServiceApplication.java
-C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\notifications-service\src\main\java\com\example\notifications_service\repository\IApiUser.java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\notifications-service\src\main\java\com\example\notifications_service\service\INotificationsService.java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\notifications-service\src\main\java\com\example\notifications_service\service\NotificationsService.java

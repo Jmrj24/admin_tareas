@@ -1,4 +1,4 @@
-package com.example.tasks_service.repository;
+package com.example.tasks_service.infrastructure;
 
 import com.example.tasks_service.dto.NotificationsDTO;
 import org.springframework.cloud.openfeign.FeignClient;

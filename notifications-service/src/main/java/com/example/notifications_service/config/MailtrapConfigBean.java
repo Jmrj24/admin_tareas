@@ -1,4 +1,4 @@
-package com.example.notifications_service.model;
+package com.example.notifications_service.config;
 
 import io.mailtrap.client.MailtrapClient;
 import io.mailtrap.config.MailtrapConfig;

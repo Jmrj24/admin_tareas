@@ -10,26 +10,33 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<ErrorResponse> notFound(NotFoundException ex) {
+    @ExceptionHandler(NotFoundExceptionTask.class)
+    public ResponseEntity<ErrorResponse> notFound(NotFoundExceptionTask ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(new ErrorResponse(ex.getMessage(), String.valueOf(HttpStatus.NOT_FOUND)));
     }
 
-    @ExceptionHandler(ConflictException.class)
-    public ResponseEntity<ErrorResponse> conflict(ConflictException ex) {
+    @ExceptionHandler(ConflictExceptionTask.class)
+    public ResponseEntity<ErrorResponse> conflict(ConflictExceptionTask ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(new ErrorResponse(ex.getMessage(), String.valueOf(HttpStatus.CONFLICT)));
     }
 
-    @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<ErrorResponse> badRequest(BadRequestException ex) {
+    @ExceptionHandler(BadRequestExceptionTask.class)
+    public ResponseEntity<ErrorResponse> badRequest(BadRequestExceptionTask ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new ErrorResponse(ex.getMessage(), String.valueOf(HttpStatus.BAD_REQUEST)));
     }
+
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ErrorResponse> handleEnumError(HttpMessageNotReadableException ex) {
+    public ResponseEntity<ErrorResponse> EnumError(HttpMessageNotReadableException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new ErrorResponse("El valor enviado no es válido",  String.valueOf(HttpStatus.BAD_REQUEST)));
+    }
+
+    @ExceptionHandler(ServiceUnavailableExceptionTask.class)
+    public ResponseEntity<ErrorResponse> ServiceUnavailable(ServiceUnavailableExceptionTask ex) {
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                .body(new ErrorResponse(ex.getMessage(),  String.valueOf(HttpStatus.SERVICE_UNAVAILABLE)));
     }
 }

@@ -6,7 +6,6 @@ import com.example.tasks_service.model.Task;
 import com.example.tasks_service.service.ITaskService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +17,6 @@ import java.util.List;
 public class TaskController {
     @Autowired
     private ITaskService taskServ;
-
-    @Value("${server.port}")
-    private int serverPort;
 
     @PostMapping("/create")
     public ResponseEntity<Task> createTask(@Valid @RequestBody TaskCreateDTO taskCreateDTO) {
@@ -45,10 +41,6 @@ public class TaskController {
 
     @GetMapping("/get/user/{idUser}")
     public ResponseEntity<List<Task>> getAllTasksByIdUser(@PathVariable Long idUser) {
-        // Creado para verificar el funcionamiento del LoadBalancing
-        //System.out.println("-------------Desde: " + serverPort);
         return ResponseEntity.ok(taskServ.getAllTasksByIdUser(idUser));
     }
-
-
 }

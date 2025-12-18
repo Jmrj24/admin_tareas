@@ -1,21 +1,14 @@
 package com.example.tasks_service.service;
 
-import com.example.tasks_service.dto.NotificationsDTO;
 import com.example.tasks_service.dto.TaskCreateDTO;
 import com.example.tasks_service.dto.TaskEditDTO;
-import com.example.tasks_service.exception.BadRequestException;
-import com.example.tasks_service.exception.NotFoundException;
+import com.example.tasks_service.exception.BadRequestExceptionTask;
+import com.example.tasks_service.exception.ConflictExceptionTask;
+import com.example.tasks_service.exception.NotFoundExceptionTask;
+import com.example.tasks_service.infrastructure.ExternalApiService;
 import com.example.tasks_service.model.Task;
-import com.example.tasks_service.model.TaskPriority;
 import com.example.tasks_service.model.TaskStatus;
-import com.example.tasks_service.repository.IApiNotifications;
-import com.example.tasks_service.repository.IApiUsers;
 import com.example.tasks_service.repository.ITaskRepository;
-import feign.FeignException;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import io.github.resilience4j.retry.annotation.Retry;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,30 +23,27 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-
 @Service
 public class TaskService implements ITaskService {
     @Autowired
     private ITaskRepository taskRepo;
 
     @Autowired
-    private IApiNotifications apiNotifications;
-
-    @Autowired
-    private IApiUsers apiUsers;
+    private ExternalApiService externalApiService;
 
     final private Map<String, ScheduledFuture<?>> TaskMap = new HashMap<>();
 
-    private static final Logger logger = LoggerFactory.getLogger(TaskService.class);
+    // Crear una instancia de ScheduledExecutorService
+    ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
 
     DateTimeFormatter formato = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy");
 
     @Override
     public Task createTask(TaskCreateDTO taskCreateDTO) {
         if(taskCreateDTO.getDateExpiration().isBefore(LocalDateTime.now())) {
-            throw new BadRequestException("Fecha de expiracion de la tarea invalida");
+            throw new BadRequestExceptionTask("Fecha de expiracion de la tarea invalida");
         }
-        validateUserById(taskCreateDTO.getIdUser());
+        externalApiService.ValidateUserById(taskCreateDTO.getIdUser());
 
         Task task = new Task();
         task.setTitle(taskCreateDTO.getTitle());
@@ -66,7 +56,7 @@ public class TaskService implements ITaskService {
         task.setIdUser(taskCreateDTO.getIdUser());
         if(task.isNotifications()) {
             expirationNotification(task);
-            sendNotifications(task, "la tarea ha sido creada de forma exitosa, el dia "
+            externalApiService.sendNotifications(task, "la tarea ha sido creada de forma exitosa, el dia "
                     + task.getDateCreation().format(formato) + " y su estado es: " + task.getStatus());
         }
         return taskRepo.save(task);
@@ -79,7 +69,7 @@ public class TaskService implements ITaskService {
 
     @Override
     public Task getByIdTask(Long idTask) {
-        return taskRepo.findById(idTask).orElseThrow(() -> new NotFoundException("Tarea no Encontrada"));
+        return taskRepo.findById(idTask).orElseThrow(() -> new NotFoundExceptionTask("Tarea no Encontrada"));
     }
 
     @Override
@@ -91,11 +81,11 @@ public class TaskService implements ITaskService {
     public Task editTask(Long idTask, TaskEditDTO taskEditDTO) {
         Task taskEdit = getByIdTask(idTask);
         if(taskEdit.getStatus().equals(TaskStatus.COMPLETED)) {
-            throw new BadRequestException("Tarea no editable, ya que su estado es " + TaskStatus.COMPLETED);
+            throw new ConflictExceptionTask("Tarea no editable, ya que su estado es " + TaskStatus.COMPLETED);
         }
         if(taskEditDTO.getDateExpiration()!=null) {
             if(taskEditDTO.getDateExpiration().isBefore(LocalDateTime.now())) {
-                throw new BadRequestException("Fecha de expiracion de la tarea invalida");
+                throw new BadRequestExceptionTask("Fecha de expiracion de la tarea invalida");
             }
             taskEdit.setDateExpiration(taskEditDTO.getDateExpiration());
         }
@@ -121,22 +111,19 @@ public class TaskService implements ITaskService {
             taskEdit.setNotifications(taskEditDTO.getNotifications());
         }
         if(taskEdit.isNotifications()) {
-            sendNotifications(taskEdit, "la tarea ha sido actualizada de forma exitosa y su estado es: "
+            externalApiService.sendNotifications(taskEdit, "la tarea ha sido actualizada de forma exitosa y su estado es: "
                     + taskEdit.getStatus());
         }
         return taskRepo.save(taskEdit);
     }
 
-    //Listar todas las tareas de un usuario
+    // Listar todas las tareas de un usuario
     @Override
     public List<Task> getAllTasksByIdUser(Long idUser) {
         return taskRepo.getAllTaskByIdUser(idUser);
     }
 
     public void expirationNotification(Task task) {
-        // Crear una instancia de ScheduledExecutorService
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-
         // Configurar la fecha y hora específicas
         LocalDateTime targetDateTime = task.getDateExpiration();
         LocalDateTime update = targetDateTime.minusHours(1);
@@ -148,30 +135,10 @@ public class TaskService implements ITaskService {
         TaskMap.put("task"+task.getId(), scheduleTask(scheduler, delay, task));
     }
 
-    // Genera las notificaciones
-    @CircuitBreaker(name = "notifications-service", fallbackMethod = "fallbackMethodSendNotifications")
-    @Retry(name = "notifications-service")
-    public void sendNotifications(Task task, String text) {
-        NotificationsDTO notificationsDTO = new NotificationsDTO(task.getTitle(), text , task.getIdUser());
-        apiNotifications.sendNotification(notificationsDTO);
-    }
-
     // Metodo para programar una tarea con un tiempo específico
     public ScheduledFuture<?> scheduleTask(ScheduledExecutorService scheduler, long delaySeconds, Task task) {
         return scheduler.schedule(() -> {
-            sendNotifications(task, "la tarea está por expirar y su estado es: "+ task.getStatus());
+            externalApiService.sendNotifications(task, "la tarea está por expirar y su estado es: "+ task.getStatus());
         }, delaySeconds, TimeUnit.MILLISECONDS);
-    }
-
-    private void fallbackMethodSendNotifications(Throwable throwable) {
-        logger.error("ALERTA INTERNA: Circuit Breaker activado. No se pudo enviar la notificación.", throwable);
-    }
-
-    public void validateUserById(Long idUser) {
-        try {
-            apiUsers.getUserById(idUser);
-        } catch (FeignException.NotFound e) {
-            throw new NotFoundException("Usuario No existe");
-        }
     }
 }

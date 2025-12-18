@@ -2,8 +2,8 @@ package com.example.users_service.service;
 
 import com.example.users_service.dto.UserCreateDTO;
 import com.example.users_service.dto.UserEditDTO;
-import com.example.users_service.exception.ConflictException;
-import com.example.users_service.exception.NotFoundException;
+import com.example.users_service.exception.ConflictExceptionUser;
+import com.example.users_service.exception.NotFoundExceptionUser;
 import com.example.users_service.model.User;
 import com.example.users_service.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class UserService implements IUserService {
 
     @Override
     public User getByIdUser(Long idUser) {
-        return userRepo.findById(idUser).orElseThrow(() -> new NotFoundException("Usuario no Encontrado"));
+        return userRepo.findById(idUser).orElseThrow(() -> new NotFoundExceptionUser("Usuario no Encontrado"));
     }
 
     @Override
@@ -57,7 +57,7 @@ public class UserService implements IUserService {
 
     public void validMail(String mail) {
         if(userRepo.findByMail(mail).isPresent()) {
-            throw new ConflictException("Mail: " + mail + " ya se encuentra registrado");
+            throw new ConflictExceptionUser("Mail: " + mail + " ya se encuentra registrado");
         }
     }
 }

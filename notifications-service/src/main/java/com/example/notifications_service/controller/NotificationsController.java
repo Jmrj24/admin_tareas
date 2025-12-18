@@ -2,7 +2,10 @@ package com.example.notifications_service.controller;
 
 import com.example.notifications_service.model.Notifications;
 import com.example.notifications_service.service.INotificationsService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +18,8 @@ public class NotificationsController {
     private INotificationsService notificationsServ;
 
     @PostMapping("/create")
-    public void sendNotification(@RequestBody Notifications notifications) {
+    public ResponseEntity<Void> sendNotification(@Valid @RequestBody Notifications notifications) {
         notificationsServ.sendNotification(notifications);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
