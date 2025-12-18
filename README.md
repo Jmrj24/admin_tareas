@@ -251,7 +251,7 @@ Las variables de entorno se definen por microservicio y permiten adaptar el sist
 
 ### Servicios con Base de Datos (Users / Tasks)
 - `DB_URL`
-- `DB_USERNAME`
+- `DB_USER`
 - `DB_PASSWORD`
 
 > Cada microservicio posee su propia base de datos y configuración independiente, aunque los nombres de las variables sean los mismos.
@@ -274,7 +274,6 @@ Las variables de entorno se definen por microservicio y permiten adaptar el sist
 - Implementar autenticación y autorización con Spring Security y JWT.
 - Incorporar tests de integración entre microservicios.
 - Implementar versionado de la API.
-- Agregar monitoreo y métricas (Spring Boot Actuator).
 
 ---
 
@@ -283,5 +282,4 @@ Las variables de entorno se definen por microservicio y permiten adaptar el sist
 - La importancia de definir y aplicar reglas de negocio desde el backend.
 - La complejidad real de los sistemas distribuidos.
 - El valor de la configuración centralizada en arquitecturas de microservicios.
-- La diferencia entre dividir un sistema en servicios y diseñar una arquitectura distribuida.
 - La importancia de documentar correctamente un proyecto para terceros.
