@@ -16,7 +16,6 @@ import java.util.List;
 
 @Service
 public class NotificationsService implements INotificationsService{
-
     @Autowired
     ExternalApiService externalApiService;
 
@@ -50,7 +49,5 @@ public class NotificationsService implements INotificationsService{
         } catch (Exception ex) {
             throw new ServiceUnavailableExceptionNotifications("Servicio de email no disponible");
         }
-
-
     }
 }

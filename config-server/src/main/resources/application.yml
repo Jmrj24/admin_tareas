@@ -14,5 +14,3 @@ spring:
           username: ${GIT_USER}
           password: ${GIT_PASSWORD}
           default-label: master
-
-
