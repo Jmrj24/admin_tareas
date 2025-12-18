@@ -160,17 +160,17 @@ Restricción:
   "notifications": true,
   "userId": 1
 }
-
+```
 Editar una Tarea
 
 PUT /tasks/{taskId}
-
+```json
 {
   "title": "Preparar presentación final",
   "dateExpiration": "2025-01-21T18:00:00",
   "notifications": false
 }
-
+```
 Obtener Tareas
 
 GET /tasks
