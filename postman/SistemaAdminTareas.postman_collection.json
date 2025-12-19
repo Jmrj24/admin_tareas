@@ -1,0 +1,236 @@
+{
+	"info": {
+		"_postman_id": "fcab0646-46f9-4610-8ae2-16d740807b82",
+		"name": "SistemaAdminTareas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28577127"
+	},
+	"item": [
+		{
+			"name": "listar Tareas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url_local}}/tasks-service/task/get",
+					"host": [
+						"{{base_url_local}}"
+					],
+					"path": [
+						"tasks-service",
+						"task",
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar usuarios",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url_local}}/users-service/user/get",
+					"host": [
+						"{{base_url_local}}"
+					],
+					"path": [
+						"users-service",
+						"user",
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear tareas",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Revisar seguridad\",\r\n    \"description\": \"Asegurar que todas las rutas de la API estén protegidas adecuadamente contra accesos no autorizados.\",\r\n    \"dateExpiration\": \"2026-12-16T11:36:00\",\r\n    \"priority\": \"HIGH\",   \r\n    \"notifications\": true,\r\n    \"idUser\": 9\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url_local}}/tasks-service/task/create",
+					"host": [
+						"{{base_url_local}}"
+					],
+					"path": [
+						"tasks-service",
+						"task",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear usuarios",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Juan Rodríguez\",\r\n    \"mail\": \"juan.rodriguez@example.com\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url_local}}/users-service/user/create",
+					"host": [
+						"{{base_url_local}}"
+					],
+					"path": [
+						"users-service",
+						"user",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar Tareas",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"title\": \"Revisar seguridad prueba\",\r\n        \"status\": \"COMPLETED\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url_local}}/tasks-service/task/edit/38",
+					"host": [
+						"{{base_url_local}}"
+					],
+					"path": [
+						"tasks-service",
+						"task",
+						"edit",
+						"38"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Tareas",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url_local}}/tasks-service/task/delete/3",
+					"host": [
+						"{{base_url_local}}"
+					],
+					"path": [
+						"tasks-service",
+						"task",
+						"delete",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar Usuarios",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Marta Sánchez Vivas\",\r\n    \"mail\": \"marta.sanchez@example.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url_local}}/users-service/user/edit/1",
+					"host": [
+						"{{base_url_local}}"
+					],
+					"path": [
+						"users-service",
+						"user",
+						"edit",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Usuarios",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url_local}}/users-service/user/delete/3",
+					"host": [
+						"{{base_url_local}}"
+					],
+					"path": [
+						"users-service",
+						"user",
+						"delete",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url_local",
+			"value": ""
+		},
+		{
+			"key": "base_url_render",
+			"value": ""
+		}
+	]
+}
