@@ -28,9 +28,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url_local}}/tasks-service/task/get",
+							"raw": "{{base_url}}/tasks-service/task/get",
 							"host": [
-								"{{base_url_local}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"tasks-service",
@@ -56,9 +56,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url_local}}/tasks-service/task/create",
+							"raw": "{{base_url}}/tasks-service/task/create",
 							"host": [
-								"{{base_url_local}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"tasks-service",
@@ -84,9 +84,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url_local}}/tasks-service/task/edit/38",
+							"raw": "{{base_url}}/tasks-service/task/edit/38",
 							"host": [
-								"{{base_url_local}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"tasks-service",
@@ -104,9 +104,9 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{base_url_local}}/tasks-service/task/delete/3",
+							"raw": "{{base_url}}/tasks-service/task/delete/3",
 							"host": [
-								"{{base_url_local}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"tasks-service",
@@ -133,9 +133,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url_local}}/tasks-service/task/create",
+							"raw": "{{base_url}}/tasks-service/task/create",
 							"host": [
-								"{{base_url_local}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"tasks-service",
@@ -161,9 +161,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url_local}}/tasks-service/task/edit/38",
+							"raw": "{{base_url}}/tasks-service/task/edit/38",
 							"host": [
-								"{{base_url_local}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"tasks-service",
@@ -190,9 +190,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url_local}}/tasks-service/task/create",
+							"raw": "{{base_url}}/tasks-service/task/create",
 							"host": [
-								"{{base_url_local}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"tasks-service",
@@ -214,9 +214,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url_local}}/users-service/user/get",
+							"raw": "{{base_url}}/users-service/user/get",
 							"host": [
-								"{{base_url_local}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"users-service",
@@ -242,9 +242,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url_local}}/users-service/user/create",
+							"raw": "{{base_url}}/users-service/user/create",
 							"host": [
-								"{{base_url_local}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"users-service",
@@ -270,9 +270,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url_local}}/users-service/user/edit/1",
+							"raw": "{{base_url}}/users-service/user/edit/1",
 							"host": [
-								"{{base_url_local}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"users-service",
@@ -290,9 +290,9 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{base_url_local}}/users-service/user/delete/3",
+							"raw": "{{base_url}}/users-service/user/delete/3",
 							"host": [
-								"{{base_url_local}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"users-service",
@@ -319,9 +319,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url_local}}/users-service/user/create",
+							"raw": "{{base_url}}/users-service/user/create",
 							"host": [
-								"{{base_url_local}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"users-service",
@@ -357,16 +357,6 @@
 					""
 				]
 			}
-		}
-	],
-	"variable": [
-		{
-			"key": "base_url_local",
-			"value": ""
-		},
-		{
-			"key": "base_url_render",
-			"value": ""
 		}
 	]
 }
