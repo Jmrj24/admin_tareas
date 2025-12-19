@@ -174,6 +174,34 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "POST CreateTask – Fecha invalida (Error)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Preparar Presentacion\",\r\n    \"description\": \"Reunión semanal\",\r\n    \"dateExpiration\": \"2025-12-16T11:36:00\",\r\n    \"priority\": \"MEDIUM\",   \r\n    \"notifications\": true,\r\n    \"idUser\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_local}}/tasks-service/task/create",
+							"host": [
+								"{{base_url_local}}"
+							],
+							"path": [
+								"tasks-service",
+								"task",
+								"create"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
