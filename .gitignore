@@ -1,6 +1,6 @@
 HELP.md
 
-variables.env
+.env
 
 docker-compose-original.yml
 /config-data

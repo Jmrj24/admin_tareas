@@ -1,14 +1,6 @@
 version: '3'
 
 services:
-  eureka-sv:
-    build: eureka-sv
-    mem_limit: 512m
-    ports:
-      - "8761:8761"
-    networks:
-      - 'admintareasnetwork'
-
   config-server:
     build: config-server
     mem_limit: 2048m
@@ -19,12 +11,21 @@ services:
     environment:
       GIT_USER: ${GIT_USER}
       GIT_PASSWORD: ${GIT_PASSWORD}
+      CONFIG_SERVER_URI: ${CONFIG_SERVER_URI}
+    
+  eureka-sv:
+    build: eureka-sv
+    mem_limit: 512m
+    ports:
+      - "8761:8761"
+    networks:
+      - 'admintareasnetwork'
 
   api-gateway:
     build: api-gateway
     mem_limit: 512m
     ports:
-      - "443:443"
+      - "9090:9090"
     networks:
       - 'admintareasnetwork'
 
@@ -50,7 +51,6 @@ services:
       - "3307:3306"
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
     restart: always
     healthcheck:
@@ -86,6 +86,6 @@ services:
     environment:
       USER_MAIL: ${USER_MAIL}
       PASSWORD_MAIL: ${PASSWORD_MAIL}
-      
+            
 networks:
   admintareasnetwork:
