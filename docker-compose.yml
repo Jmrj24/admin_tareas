@@ -20,6 +20,8 @@ services:
       - "8761:8761"
     networks:
       - 'admintareasnetwork'
+    environment:
+      PATH_CONFIG: ${PATH_CONFIG}
 
   api-gateway:
     build: api-gateway
@@ -28,6 +30,8 @@ services:
       - "9090:9090"
     networks:
       - 'admintareasnetwork'
+    environment:
+      PATH_CONFIG: ${PATH_CONFIG}
 
   users-service:
     build: users-service
@@ -39,7 +43,8 @@ services:
     environment:
       DB_URL: ${DB_URL_USERS}
       DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD_USERS}
+      DB_PASSWORD: ${DB_PASSWORD}
+      PATH_CONFIG: ${PATH_CONFIG}
     restart: always
     depends_on:
       service_admin_tareas_bd:
@@ -51,7 +56,6 @@ services:
       - "3307:3306"
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
     restart: always
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
@@ -70,7 +74,8 @@ services:
     environment:
       DB_URL: ${DB_URL_TASKS}
       DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD_USERS}
+      DB_PASSWORD: ${DB_PASSWORD}
+      PATH_CONFIG: ${PATH_CONFIG}
     restart: always
     depends_on:
       service_admin_tareas_bd:
@@ -86,6 +91,7 @@ services:
     environment:
       USER_MAIL: ${USER_MAIL}
       PASSWORD_MAIL: ${PASSWORD_MAIL}
+      PATH_CONFIG: ${PATH_CONFIG}
             
 networks:
   admintareasnetwork:
