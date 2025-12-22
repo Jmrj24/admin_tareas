@@ -191,6 +191,36 @@ GET /tasks/get
 
 ---
 
+## 🧪 Postman Collection
+
+El repositorio incluye una **Postman Collection** lista para utilizar, que permite probar los endpoints del sistema a través del **API Gateway**.
+
+📁 **/postman/SistemaAdminTareas.postman_collection.json**
+
+
+La colección cubre los principales flujos del sistema, incluyendo:
+
+- Gestión de usuarios.
+- Creación y edición de tareas.
+- Validación de reglas de negocio.
+- Comunicación entre microservicios a través del API Gateway.
+
+### 🌍 Entornos de Postman
+
+La colección está configurada para trabajar con **dos entornos**:
+
+- **Local**: para ejecución del proyecto en entorno local o con Docker.
+- **Render**: para pruebas sobre el sistema desplegado en la nube.
+
+Cada entorno define variables como la URL base del API Gateway, evitando modificar manualmente los endpoints.
+
+📌 Para utilizar la colección:
+1. Importar el archivo de la colección en Postman.
+2. Seleccionar el entorno correspondiente (Local o Render).
+3. Ejecutar las requests disponibles.
+
+---
+
 ## 🛠️ Tecnologías Utilizadas
 
 ### Backend
@@ -230,15 +260,62 @@ Cada servicio se ejecuta como una aplicación Spring Boot independiente y obtien
 
 ---
 
-### Ejecución con Docker
+### 🐳 Ejecución del Proyecto con Docker
 
-- Cada microservicio cuenta con su propio `Dockerfile`.
-- El sistema completo se levanta utilizando **Docker Compose**.
+El sistema puede ejecutarse de forma completa utilizando **Docker y Docker Compose**, permitiendo levantar todos los microservicios y sus dependencias de manera orquestada.
 
-Esto permite:
-- Ejecutar todos los servicios de forma aislada.
-- Simular un entorno distribuido.
-- Simplificar el despliegue del sistema.
+Esta opción es ideal para simular un entorno distribuido de forma local.
+
+### 📋 Requisitos Previos
+
+- Docker
+- Docker Compose
+
+### ⚙️ Configuración del Entorno
+
+Antes de ejecutar el proyecto, es necesario configurar las variables de entorno.
+
+1. Copiar el archivo de ejemplo:
+
+.env.example
+
+2. Renombrarlo a:
+
+.env
+
+3. Completar los valores según el entorno local o de pruebas.
+
+Este archivo será utilizado por `docker-compose.yml` para inyectar las variables necesarias en cada microservicio.
+
+### 🚀 Levantar el Sistema
+
+Desde la raíz del proyecto, ejecutar:
+docker-compose up --build
+
+Este comando realizará las siguientes acciones:
+
+- Construirá las imágenes de cada microservicio.
+- Iniciará los contenedores en el orden configurado.
+- Registrará los servicios automáticamente en Eureka Server.
+- Centralizará la configuración a través de Config Server.
+- Expondrá el sistema a través del API Gateway.
+
+### 📡 Acceso al Sistema
+
+Una vez levantado el entorno:
+
+- Todas las solicitudes deben realizarse a través del **API Gateway**.
+- Los endpoints pueden probarse utilizando la **Postman Collection** incluida en el repositorio.
+
+📌 Nota: los microservicios no están pensados para ser consumidos directamente, sino a través del Gateway.
+
+### 🛑 Detener la Ejecución
+
+Para detener y eliminar los contenedores:
+
+docker-compose down
+
+Este comando detiene el sistema sin eliminar las imágenes construidas.
 
 ---
 
@@ -255,6 +332,18 @@ Las variables de entorno se definen por microservicio y permiten adaptar el sist
 - `DB_PASSWORD`
 
 > Cada microservicio posee su propia base de datos y configuración independiente, aunque los nombres de las variables sean los mismos.
+
+### 📄 Archivo .env.example
+
+El repositorio incluye un archivo `.env.example` que sirve como referencia para configurar el entorno.
+
+Antes de ejecutar el proyecto (especialmente con Docker), se debe:
+
+1. Copiar el archivo `.env.example`
+2. Renombrarlo a `.env`
+3. Completar los valores según el entorno
+
+Este archivo es consumido por `docker-compose.yml` para inyectar las variables necesarias en cada microservicio.
 
 ---
 
