@@ -9,4 +9,5 @@ com\example\users_service\repository\IUserRepository.class
 com\example\users_service\exception\NotFoundExceptionUser.class
 com\example\users_service\dto\ErrorResponse.class
 com\example\users_service\dto\UserEditDTO.class
+com\example\users_service\dto\UserResponseDTO.class
 com\example\users_service\dto\UserCreateDTO.class

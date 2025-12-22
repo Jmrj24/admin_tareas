@@ -2,6 +2,7 @@ package com.example.tasks_service.service;
 
 import com.example.tasks_service.dto.TaskCreateDTO;
 import com.example.tasks_service.dto.TaskEditDTO;
+import com.example.tasks_service.dto.TaskResponseDTO;
 import com.example.tasks_service.exception.BadRequestExceptionTask;
 import com.example.tasks_service.exception.ConflictExceptionTask;
 import com.example.tasks_service.exception.NotFoundExceptionTask;
@@ -39,37 +40,45 @@ public class TaskService implements ITaskService {
     DateTimeFormatter formato = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy");
 
     @Override
-    public Task createTask(TaskCreateDTO taskCreateDTO) {
-        if(taskCreateDTO.getDateExpiration().isBefore(LocalDateTime.now())) {
+    public TaskResponseDTO createTask(TaskCreateDTO taskCreateDTO) {
+        if(taskCreateDTO.dateExpiration().isBefore(LocalDateTime.now())) {
             throw new BadRequestExceptionTask("Fecha de expiracion de la tarea invalida");
         }
-        externalApiService.ValidateUserById(taskCreateDTO.getIdUser());
+        externalApiService.ValidateUserById(taskCreateDTO.idUser());
 
         Task task = new Task();
-        task.setTitle(taskCreateDTO.getTitle());
-        task.setDescription(taskCreateDTO.getDescription());
+        task.setTitle(taskCreateDTO.title());
+        task.setDescription(taskCreateDTO.description());
         task.setDateCreation(LocalDateTime.now());
-        task.setDateExpiration(taskCreateDTO.getDateExpiration());
+        task.setDateExpiration(taskCreateDTO.dateExpiration());
         task.setStatus(TaskStatus.PENDING);
-        task.setPriority(taskCreateDTO.getPriority());
-        task.setNotifications(taskCreateDTO.isNotifications());
-        task.setIdUser(taskCreateDTO.getIdUser());
+        task.setPriority(taskCreateDTO.priority());
+        task.setNotifications(taskCreateDTO.notifications());
+        task.setIdUser(taskCreateDTO.idUser());
         if(task.isNotifications()) {
             expirationNotification(task);
             externalApiService.sendNotifications(task, "la tarea ha sido creada de forma exitosa, el dia "
                     + task.getDateCreation().format(formato) + " y su estado es: " + task.getStatus());
         }
-        return taskRepo.save(task);
+        Task taskSaved = taskRepo.save(task);
+        return toTaskResponse(taskSaved);
     }
 
     @Override
-    public List<Task> getAllTasks() {
-        return taskRepo.findAll();
+    public List<TaskResponseDTO> getAllTasks() {
+        return taskRepo.findAll().stream()
+                .map(this::toTaskResponse)
+                .toList();
     }
 
     @Override
-    public Task getByIdTask(Long idTask) {
+    public Task getByIdEntityTask(Long idTask) {
         return taskRepo.findById(idTask).orElseThrow(() -> new NotFoundExceptionTask("Tarea no Encontrada"));
+    }
+
+    @Override
+    public TaskResponseDTO getByIdTask(Long idTask) {
+        return toTaskResponse(getByIdEntityTask(idTask));
     }
 
     @Override
@@ -78,8 +87,8 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public Task editTask(Long idTask, TaskEditDTO taskEditDTO) {
-        Task taskEdit = getByIdTask(idTask);
+    public TaskResponseDTO editTask(Long idTask, TaskEditDTO taskEditDTO) {
+        Task taskEdit = getByIdEntityTask(idTask);
         if(taskEdit.getStatus().equals(TaskStatus.COMPLETED)) {
             throw new ConflictExceptionTask("Tarea no editable, ya que su estado es " + TaskStatus.COMPLETED);
         }
@@ -114,16 +123,33 @@ public class TaskService implements ITaskService {
             externalApiService.sendNotifications(taskEdit, "la tarea ha sido actualizada de forma exitosa y su estado es: "
                     + taskEdit.getStatus());
         }
-        return taskRepo.save(taskEdit);
+        Task taskSaved = taskRepo.save(taskEdit);
+        return toTaskResponse(taskSaved);
     }
 
     // Listar todas las tareas de un usuario
     @Override
-    public List<Task> getAllTasksByIdUser(Long idUser) {
+    public List<TaskResponseDTO> getAllTasksByIdUser(Long idUser) {
         return taskRepo.getAllTaskByIdUser(idUser);
     }
 
-    public void expirationNotification(Task task) {
+    @Override
+    public TaskResponseDTO editStatusTask(Long idTask, TaskStatus status) {
+        Task taskEdit = getByIdEntityTask(idTask);
+        if(taskEdit.getStatus().equals(TaskStatus.COMPLETED)) {
+            throw new ConflictExceptionTask("Tarea no editable, ya que su estado es " + TaskStatus.COMPLETED);
+        }
+        taskEdit.setStatus(status);
+        Task taskSaved = taskRepo.save(taskEdit);
+        return toTaskResponse(taskSaved);
+    }
+
+    private TaskResponseDTO toTaskResponse (Task task) {
+        return new TaskResponseDTO(task.getId(), task.getTitle(), task.getDescription(), task.getDateCreation(), task.getDateExpiration(),
+                task.getStatus(), task.getPriority(), task.isNotifications(), task.getIdUser());
+    }
+
+    private void expirationNotification(Task task) {
         // Configurar la fecha y hora específicas
         LocalDateTime targetDateTime = task.getDateExpiration();
         LocalDateTime update = targetDateTime.minusHours(1);
@@ -136,7 +162,7 @@ public class TaskService implements ITaskService {
     }
 
     // Metodo para programar una tarea con un tiempo específico
-    public ScheduledFuture<?> scheduleTask(ScheduledExecutorService scheduler, long delaySeconds, Task task) {
+    private ScheduledFuture<?> scheduleTask(ScheduledExecutorService scheduler, long delaySeconds, Task task) {
         return scheduler.schedule(() -> {
             externalApiService.sendNotifications(task, "la tarea está por expirar y su estado es: "+ task.getStatus());
         }, delaySeconds, TimeUnit.MILLISECONDS);

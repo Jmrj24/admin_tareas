@@ -2,7 +2,7 @@ package com.example.users_service.controller;
 
 import com.example.users_service.dto.UserCreateDTO;
 import com.example.users_service.dto.UserEditDTO;
-import com.example.users_service.model.User;
+import com.example.users_service.dto.UserResponseDTO;
 import com.example.users_service.service.IUserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +19,12 @@ public class UserController {
     private IUserService userServ;
 
     @PostMapping("/create")
-    public ResponseEntity<User> saveUser(@Valid @RequestBody UserCreateDTO userCreateDTO) {
+    public ResponseEntity<UserResponseDTO> saveUser(@Valid @RequestBody UserCreateDTO userCreateDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userServ.createUser(userCreateDTO));
     }
 
     @GetMapping("/get")
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
         return ResponseEntity.ok(userServ.getAllUsers());
     }
 
@@ -35,12 +35,12 @@ public class UserController {
     }
 
     @PutMapping("/edit/{idUser}")
-    public ResponseEntity<User> editUser(@PathVariable Long idUser, @Valid @RequestBody UserEditDTO userEditDTO) {
+    public ResponseEntity<UserResponseDTO> editUser(@PathVariable Long idUser, @Valid @RequestBody UserEditDTO userEditDTO) {
         return ResponseEntity.ok(userServ.editUser(idUser, userEditDTO));
     }
 
     @GetMapping("/get/{idUser}")
-    public ResponseEntity<User> getUserById(@PathVariable Long idUser) {
+    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable Long idUser) {
         return ResponseEntity.ok(userServ.getByIdUser(idUser));
     }
 }

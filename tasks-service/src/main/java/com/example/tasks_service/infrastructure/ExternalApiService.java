@@ -29,8 +29,7 @@ public class ExternalApiService {
     @CircuitBreaker(name = "notifications-service", fallbackMethod = "fallbackMethodSendNotifications")
     @Retry(name = "notifications-service")
     public void sendNotifications(Task task, String text) {
-        NotificationsDTO notificationsDTO = new NotificationsDTO(task.getTitle(), text , task.getIdUser());
-        apiNotifications.sendNotification(notificationsDTO);
+        apiNotifications.sendNotification(new NotificationsDTO(task.getTitle(), text , task.getIdUser()));
     }
 
     private void fallbackMethodSendNotifications(Task task, String text, Throwable throwable) {

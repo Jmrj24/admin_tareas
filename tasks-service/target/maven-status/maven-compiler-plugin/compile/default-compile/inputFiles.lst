@@ -3,6 +3,7 @@ C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\tasks-service\src\main\java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\tasks-service\src\main\java\com\example\tasks_service\dto\NotificationsDTO.java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\tasks-service\src\main\java\com\example\tasks_service\dto\TaskCreateDTO.java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\tasks-service\src\main\java\com\example\tasks_service\dto\TaskEditDTO.java
+C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\tasks-service\src\main\java\com\example\tasks_service\dto\TaskResponseDTO.java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\tasks-service\src\main\java\com\example\tasks_service\dto\UserDTO.java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\tasks-service\src\main\java\com\example\tasks_service\exception\BadRequestExceptionTask.java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\tasks-service\src\main\java\com\example\tasks_service\exception\ConflictExceptionTask.java

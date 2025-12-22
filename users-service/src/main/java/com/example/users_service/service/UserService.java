@@ -2,6 +2,7 @@ package com.example.users_service.service;
 
 import com.example.users_service.dto.UserCreateDTO;
 import com.example.users_service.dto.UserEditDTO;
+import com.example.users_service.dto.UserResponseDTO;
 import com.example.users_service.exception.ConflictExceptionUser;
 import com.example.users_service.exception.NotFoundExceptionUser;
 import com.example.users_service.model.User;
@@ -18,23 +19,31 @@ public class UserService implements IUserService {
     private IUserRepository userRepo;
 
     @Override
-    public User createUser(UserCreateDTO userCreateDTO) {
-        validMail(userCreateDTO.getMail());
+    public UserResponseDTO createUser(UserCreateDTO userCreateDTO) {
+        validMail(userCreateDTO.mail());
         User user = new User();
-        user.setName(userCreateDTO.getName());
-        user.setMail(userCreateDTO.getMail());
+        user.setName(userCreateDTO.name());
+        user.setMail(userCreateDTO.mail());
         user.setDateCreation(LocalDate.now());
-        return userRepo.save(user);
+        User userSaved = userRepo.save(user);
+        return toUserResponse(userSaved);
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return userRepo.findAll();
+    public List<UserResponseDTO> getAllUsers() {
+        return userRepo.findAll().stream()
+                .map(this::toUserResponse)
+                .toList();
     }
 
     @Override
-    public User getByIdUser(Long idUser) {
+    public User getByIdEntityUser(Long idUser) {
         return userRepo.findById(idUser).orElseThrow(() -> new NotFoundExceptionUser("Usuario no Encontrado"));
+    }
+
+    @Override
+    public UserResponseDTO getByIdUser(Long idUser) {
+        return toUserResponse(getByIdEntityUser(idUser));
     }
 
     @Override
@@ -43,8 +52,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User editUser(Long idUser, UserEditDTO userEditDTO) {
-        User userEdit = getByIdUser(idUser);
+    public UserResponseDTO editUser(Long idUser, UserEditDTO userEditDTO) {
+        User userEdit = getByIdEntityUser(idUser);
         if(userEditDTO.getName()!=null) {
             userEdit.setName(userEditDTO.getName());
         }
@@ -52,12 +61,17 @@ public class UserService implements IUserService {
             validMail(userEditDTO.getMail());
             userEdit.setMail(userEditDTO.getMail());
         }
-        return userRepo.save(userEdit);
+        User userSaved = userRepo.save(userEdit);
+        return toUserResponse(userSaved);
     }
 
-    public void validMail(String mail) {
+    private void validMail(String mail) {
         if(userRepo.findByMail(mail).isPresent()) {
             throw new ConflictExceptionUser("Mail: " + mail + " ya se encuentra registrado");
         }
+    }
+
+    private UserResponseDTO toUserResponse(User user) {
+        return new UserResponseDTO(user.getId(), user.getName(), user.getMail(), user.getDateCreation());
     }
 }

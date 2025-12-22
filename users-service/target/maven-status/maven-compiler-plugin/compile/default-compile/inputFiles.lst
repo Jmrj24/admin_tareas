@@ -2,6 +2,7 @@ C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\users-service\src\main\java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\users-service\src\main\java\com\example\users_service\dto\ErrorResponse.java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\users-service\src\main\java\com\example\users_service\dto\UserCreateDTO.java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\users-service\src\main\java\com\example\users_service\dto\UserEditDTO.java
+C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\users-service\src\main\java\com\example\users_service\dto\UserResponseDTO.java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\users-service\src\main\java\com\example\users_service\exception\ConflictExceptionUser.java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\users-service\src\main\java\com\example\users_service\exception\GlobalExceptionHandler.java
 C:\Users\Jeferson\Documents\SpringDocker\AdminTareas\users-service\src\main\java\com\example\users_service\exception\NotFoundExceptionUser.java

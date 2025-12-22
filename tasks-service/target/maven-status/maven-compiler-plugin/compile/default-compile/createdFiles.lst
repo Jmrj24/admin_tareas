@@ -2,6 +2,7 @@ com\example\tasks_service\exception\ConflictExceptionTask.class
 com\example\tasks_service\exception\GlobalExceptionHandler.class
 com\example\tasks_service\dto\TaskCreateDTO.class
 com\example\tasks_service\dto\TaskEditDTO.class
+com\example\tasks_service\dto\TaskResponseDTO.class
 com\example\tasks_service\infrastructure\IApiUsers.class
 com\example\tasks_service\dto\ErrorResponse.class
 com\example\tasks_service\model\TaskStatus.class
