@@ -203,7 +203,7 @@ La colección cubre los principales flujos del sistema, incluyendo:
 - Gestión de usuarios.
 - Creación y edición de tareas.
 - Validación de reglas de negocio.
-- Comunicación entre microservicios a través del API Gateway.
+- Comunicación entre microservicios.
 
 ### 🌍 Entornos de Postman
 
@@ -290,12 +290,13 @@ Este archivo será utilizado por `docker-compose.yml` para inyectar las variable
 ### 🚀 Levantar el Sistema
 
 Desde la raíz del proyecto, ejecutar:
-docker-compose up --build
+docker-compose build
+docker-compose up
 
 Este comando realizará las siguientes acciones:
 
 - Construirá las imágenes de cada microservicio.
-- Iniciará los contenedores en el orden configurado.
+- Iniciará los contenedores.
 - Registrará los servicios automáticamente en Eureka Server.
 - Centralizará la configuración a través de Config Server.
 - Expondrá el sistema a través del API Gateway.
@@ -304,10 +305,7 @@ Este comando realizará las siguientes acciones:
 
 Una vez levantado el entorno:
 
-- Todas las solicitudes deben realizarse a través del **API Gateway**.
 - Los endpoints pueden probarse utilizando la **Postman Collection** incluida en el repositorio.
-
-📌 Nota: los microservicios no están pensados para ser consumidos directamente, sino a través del Gateway.
 
 ### 🛑 Detener la Ejecución
 
