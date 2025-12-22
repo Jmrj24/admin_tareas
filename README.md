@@ -163,7 +163,7 @@ Restricción:
 ```
 Editar una Tarea
 
-PUT /tasks//edit/{idTask}
+PATCH /tasks//edit/{idTask}
 ```json
 {
   "title": "Preparar presentación final",
