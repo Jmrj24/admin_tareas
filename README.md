@@ -317,6 +317,41 @@ Este comando detiene el sistema sin eliminar las imágenes construidas.
 
 ---
 
+## ☁️ Despliegue en la Nube
+
+El sistema se encuentra desplegado en un entorno cloud utilizando servicios gratuitos, combinando:
+
+- **Render** para los microservicios
+- **Railway** para las bases de datos
+
+Cada microservicio es desplegado de forma independiente y configurado mediante variables de entorno, respetando la arquitectura distribuida del sistema.
+
+### ⚠️ Consideraciones sobre el acceso público
+
+Debido a las limitaciones de los planes gratuitos utilizados:
+
+- Los servicios pueden entrar en estado de *sleep* tras un período de inactividad.
+- Las bases de datos también pueden suspenderse automáticamente.
+- El primer request luego de un tiempo puede presentar latencia adicional.
+
+Por este motivo, **no se incluyen enlaces públicos activos en el README**, ya que:
+
+- Podrían no estar disponibles al momento de la revisión.
+- Requerirían interacción manual previa para reactivar los servicios.
+- Podrían generar una mala experiencia a quien evalúe el proyecto.
+
+### ✅ Enfoque adoptado
+
+El despliegue se documenta desde el punto de vista **arquitectónico y técnico**, priorizando:
+
+- Reproducibilidad del entorno mediante Docker.
+- Configuración clara a través de variables de entorno.
+- Uso de un API Gateway como punto único de entrada.
+
+Cualquier persona puede levantar el proyecto localmente o en su propio entorno cloud siguiendo las instrucciones del repositorio.
+
+---
+
 ## 🔐 Variables de Entorno
 
 Las variables de entorno se definen por microservicio y permiten adaptar el sistema a distintos entornos sin modificar el código fuente.
