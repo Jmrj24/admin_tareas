@@ -43,10 +43,9 @@ public class NotificationsService implements INotificationsService{
                 .build();
 
         try {
-            /*if(!mailtrapClient.send(mail).isSuccess()) {
+            if(!mailtrapClient.send(mail).isSuccess()) {
                 throw new FailedExceptionNotifications("Mail rechazado por Mailtrap");
-            }*/
-            System.out.println(mail);
+            }
         } catch (Exception ex) {
             throw new ServiceUnavailableExceptionNotifications("Servicio de email no disponible");
         }
