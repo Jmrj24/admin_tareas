@@ -89,7 +89,6 @@ services:
     networks:
       - 'admintareasnetwork'
     environment:
-      USER_MAIL: ${USER_MAIL}
       PASSWORD_MAIL: ${PASSWORD_MAIL}
       PATH_CONFIG: ${PATH_CONFIG}
             
