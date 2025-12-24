@@ -3,7 +3,7 @@ version: '3'
 services:
   config-server:
     build: config-server
-    mem_limit: 2048m
+    mem_limit: 512m
     ports:
       - "8098:8098"
     networks:
@@ -12,6 +12,10 @@ services:
       GIT_USER: ${GIT_USER}
       GIT_PASSWORD: ${GIT_PASSWORD}
       CONFIG_SERVER_URI: ${CONFIG_SERVER_URI}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "localhost:8098/actuator/health"]
+      interval: 10s
+      retries: 5
     
   eureka-sv:
     build: eureka-sv
@@ -22,6 +26,9 @@ services:
       - 'admintareasnetwork'
     environment:
       PATH_CONFIG: ${PATH_CONFIG}
+    depends_on:
+      config-server:
+        condition: service_healthy
 
   api-gateway:
     build: api-gateway
@@ -32,6 +39,9 @@ services:
       - 'admintareasnetwork'
     environment:
       PATH_CONFIG: ${PATH_CONFIG}
+    depends_on:
+      config-server:
+        condition: service_healthy
 
   users-service:
     build: users-service
@@ -47,8 +57,10 @@ services:
       PATH_CONFIG: ${PATH_CONFIG}
     restart: always
     depends_on:
+      config-server:
+        condition: service_healthy
       service_admin_tareas_bd:
-          condition: service_healthy
+        condition: service_healthy
 
   service_admin_tareas_bd:
     image: mysql:8.3.0 
@@ -78,8 +90,10 @@ services:
       PATH_CONFIG: ${PATH_CONFIG}
     restart: always
     depends_on:
+      config-server:
+        condition: service_healthy
       service_admin_tareas_bd:
-          condition: service_healthy 
+        condition: service_healthy
 
   notifications-service:
     build: notifications-service
@@ -91,6 +105,9 @@ services:
     environment:
       PASSWORD_MAIL: ${PASSWORD_MAIL}
       PATH_CONFIG: ${PATH_CONFIG}
+    depends_on:
+      config-server:
+        condition: service_healthy
             
 networks:
   admintareasnetwork:
