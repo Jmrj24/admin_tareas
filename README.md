@@ -290,8 +290,9 @@ Este archivo será utilizado por `docker-compose.yml` para inyectar las variable
 ### 🚀 Levantar el Sistema
 
 Desde la raíz del proyecto, ejecutar:
-docker-compose build
-docker-compose up
+
+- docker-compose build
+- docker-compose up
 
 Este comando realizará las siguientes acciones:
 
@@ -311,7 +312,7 @@ Una vez levantado el entorno:
 
 Para detener y eliminar los contenedores:
 
-docker-compose down
+- docker-compose down
 
 Este comando detiene el sistema sin eliminar las imágenes construidas.
 
