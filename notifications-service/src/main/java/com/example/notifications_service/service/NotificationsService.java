@@ -35,8 +35,7 @@ public class NotificationsService implements INotificationsService{
 
         MailtrapMail mail = MailtrapMail.builder()
                 .from(new Address(senderEmail, senderName))
-                // Aqui para que el correo se envia a cada usuario se debe setear en new Address "userDTO.getMail()"
-                .to(List.of(new Address("jeferson24j@gmail.com" /*userDTO.getMail()*/)))
+                .to(List.of(new Address(userDTO.getMail())))
                 .subject(notifications.getSubject())
                 .text("Hola " + userDTO.getName()+ " " + notifications.getText())
                 .category("Notification")

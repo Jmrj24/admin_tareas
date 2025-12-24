@@ -15,6 +15,8 @@ public class MailtrapConfigBean {
     @Bean
     public MailtrapClient mailtrapClient() {
         MailtrapConfig config = new MailtrapConfig.Builder()
+                .sandbox(true)
+                .inboxId(3267217L)
                 .token(token)
                 .build();
 
